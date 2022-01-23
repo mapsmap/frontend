@@ -1,6 +1,11 @@
 import React from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
+import RemoveButtonEdge from "./RemoveButtonEdge";
 import useStore from "../store";
+
+const edgeTypes = {
+    removeButton: RemoveButtonEdge
+}
 
 const fitView = (reactFlowInstance) => {
     // console.log('Flow loaded:', reactFlowInstance);
@@ -18,7 +23,7 @@ const getEdges = (nodes) => {
                     id: "e" + sourceId + "-" + targetId,
                     source: sourceId,
                     target: targetId,
-                    animated: true,
+                    type: "removeButton",
                 });
             });
         });
@@ -35,6 +40,7 @@ export default function Nodes() {
         <ReactFlow
             elements={elements}
             onLoad={fitView}
+            edgeTypes={edgeTypes}
         >
             <Background color="#aaa" gap={16} />
         </ReactFlow>

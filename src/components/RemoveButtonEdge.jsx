@@ -7,7 +7,7 @@ import {
 
 import "./RemoveButtonEdge.css";
 
-const foreignObjectSize = 40;
+const foreignObjectSize = 20;
 
 const onEdgeClick = (evt, id) => {
     evt.stopPropagation();

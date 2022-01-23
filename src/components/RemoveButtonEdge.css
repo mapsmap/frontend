@@ -4,7 +4,7 @@
   background: #eee;
   border: 1px solid #fff;
   cursor: pointer;
-  border-radius: 50%;
+  border-radius: 30%;
   font-size: 12px;
   line-height: 1;
 }
@@ -15,10 +15,10 @@
 
 .edgebutton-foreignobject div {
   background: transparent;
-  width: 40px;
-  height: 40px;
+  width: 20px;
+  height: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 40px;
+  min-height: 20px;
 }

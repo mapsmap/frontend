@@ -1,6 +1,18 @@
 import create from "zustand";
 import produce from "immer";
 
+const addEdge = (state, sourceId, targetId) => {
+    return produce(state, draft => {
+        const targetNode = draft.nodes.find(node => node.id === targetId);
+        if (!targetNode.childNodes) {
+            targetNode.childNodes = [];
+        }
+        if (!targetNode.childNodes.includes(sourceId)) {
+            targetNode.childNodes.push(sourceId);
+        }
+    })
+}
+
 const removeEdge = (state, sourceId, targetId) => {
     return produce(state, draft => {
         const targetNode = draft.nodes.find(node => node.id === targetId);
@@ -39,6 +51,8 @@ const useStore = create(set => ({
     ],
     addNode: (node, targetId) =>
         set(state => ({ nodes: [...state.nodes, node] })),
+    addEdge: (sourceId, targetId) =>
+        set(state => addEdge(state, sourceId, targetId)),
     removeEdge: (sourceId, targetId) =>
         set(state => removeEdge(state, sourceId, targetId))
 }));

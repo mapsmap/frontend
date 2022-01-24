@@ -43,12 +43,16 @@ export default function Nodes() {
     const edges = getEdges(nodes);
     const elements = [...nodes, ...edges];
 
+    const addEdge = useStore(state => state.addEdge);
+    const onConnectEdge = ({ source, target }) => addEdge(source, target);
+
     return (
         <ReactFlow
             elements={elements}
-            onLoad={fitView}
             nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
+            onLoad={fitView}
+            onConnect={onConnectEdge}
         >
             <Background color="#aaa" gap={16} />
         </ReactFlow>

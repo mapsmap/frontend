@@ -44,6 +44,13 @@ const removeEdge = (state, sourceId, targetId) => {
     });
 }
 
+const updateNodePosition = (state, nodeId, newPosition) => {
+    return produce(state, draft => {
+        const node = draft.nodes.find(node => node.id === nodeId);
+        node.position = newPosition;
+    })
+}
+
 const createStore = (set) => ({
     nodes: [
         {
@@ -78,7 +85,9 @@ const createStore = (set) => ({
     addEdge: (sourceId, targetId) =>
         set(state => addEdge(state, sourceId, targetId)),
     removeEdge: (sourceId, targetId) =>
-        set(state => removeEdge(state, sourceId, targetId))
+        set(state => removeEdge(state, sourceId, targetId)),
+    updateNodePosition: (nodeId, newPosition) =>
+        set(state => updateNodePosition(state, nodeId, newPosition))
 })
 
 // Offline support and collaboration

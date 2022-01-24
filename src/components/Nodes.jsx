@@ -1,4 +1,3 @@
-import React from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
 import RootNode from "./RootNode";
 import ChildNode from "./ChildNode";
@@ -46,6 +45,9 @@ export default function Nodes() {
     const addEdge = useStore(state => state.addEdge);
     const onConnectEdge = ({ source, target }) => addEdge(source, target);
 
+    const updateNodePosition = useStore(state => state.updateNodePosition);
+    const onNodeDragStop = (event, node) => updateNodePosition(node.id, node.position);
+
     return (
         <ReactFlow
             elements={elements}
@@ -53,6 +55,7 @@ export default function Nodes() {
             edgeTypes={edgeTypes}
             onLoad={fitView}
             onConnect={onConnectEdge}
+            onNodeDragStop={onNodeDragStop}
         >
             <Background color="#aaa" gap={16} />
         </ReactFlow>

@@ -93,7 +93,9 @@ const createStore = (set) => ({
 // Offline support and collaboration
 const roomName = "mapsmap";
 const ydoc = new Y.Doc();
+// eslint-disable-next-line no-unused-vars
 const persistence = new IndexeddbPersistence(roomName, ydoc);
+// eslint-disable-next-line no-unused-vars
 const provider = new WebrtcProvider(roomName, ydoc);
 
 const useStore = create(yjs(ydoc, "shared", createStore));

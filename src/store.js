@@ -1,5 +1,18 @@
 import create from "zustand";
 
+const removeEdge = (state, sourceId, targetId) => {
+    return {
+        ...state,
+        nodes: state.nodes.map(node => {
+            if (node.id !== targetId) return node
+            return {
+                ...node,
+                childNodes: node.childNodes.filter(id => id !== sourceId)
+            }
+        })
+    }
+}
+
 const useStore = create(set => ({
     nodes: [
         {
@@ -33,8 +46,10 @@ const useStore = create(set => ({
             position: { x: -500, y: 80 }
         },
     ],
-    addNode: (node, source) =>
+    addNode: (node, targetId) =>
         set(state => ({ nodes: [...state.nodes, node] })),
+    removeEdge: (sourceId, targetId) =>
+        set(state => removeEdge(state, sourceId, targetId))
 }));
 
 export default useStore;

@@ -9,7 +9,7 @@ const addChildNode = (state, targetId) => {
 
         // TODO: use hash or unique id
         const id = Math.floor(Math.random() * 1000000).toString();
-        const newNode = { id: id, data: { label: "" }, type: "childNode", position: { x: x, y: y } };
+        const newNode = { id: id, data: { label: "New Node" }, type: "childNode", position: { x: x, y: y } };
         const nodes = draft.nodes;
         nodes.push(newNode);
 

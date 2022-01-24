@@ -17,8 +17,8 @@ const getEdges = (nodes) => {
     nodes
         .filter(node => node.childNodes)
         .forEach(node => {
-            const sourceId = node.id;
-            node.childNodes.forEach(targetId => {
+            const targetId = node.id;
+            node.childNodes.forEach(sourceId => {
                 edges.push({
                     id: "e" + sourceId + "-" + targetId,
                     source: sourceId,

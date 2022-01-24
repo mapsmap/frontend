@@ -1,16 +1,11 @@
 import create from "zustand";
+import produce, { produceWithPatches } from "immer";
 
 const removeEdge = (state, sourceId, targetId) => {
-    return {
-        ...state,
-        nodes: state.nodes.map(node => {
-            if (node.id !== targetId) return node
-            return {
-                ...node,
-                childNodes: node.childNodes.filter(id => id !== sourceId)
-            }
-        })
-    }
+    return produce(state, draft => {
+        const targetNode = draft.nodes.find(node => node.id === targetId);
+        targetNode.childNodes = targetNode.childNodes.filter(id => id !== sourceId);
+    });
 }
 
 const useStore = create(set => ({

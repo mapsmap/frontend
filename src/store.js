@@ -2,7 +2,8 @@ import create from "zustand";
 import produce from "immer";
 import * as Y from "yjs";
 import yjs from "zustand-middleware-yjs";
-import { WebrtcProvider } from "y-webrtc"
+import { WebrtcProvider } from "y-webrtc";
+import { IndexeddbPersistence } from "y-indexeddb";
 
 
 const addChildNode = (state, targetId) => {
@@ -80,10 +81,11 @@ const createStore = (set) => ({
         set(state => removeEdge(state, sourceId, targetId))
 })
 
-// The yjs document holds the shared data
+// Offline support and collaboration
+const roomName = "mapsmap";
 const ydoc = new Y.Doc();
-// The provider syncs the data
-const provider = new WebrtcProvider("mapsmap", ydoc);
+const persistence = new IndexeddbPersistence(roomName, ydoc);
+const provider = new WebrtcProvider(roomName, ydoc);
 
 const useStore = create(yjs(ydoc, "shared", createStore));
 

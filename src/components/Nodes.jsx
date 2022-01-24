@@ -23,6 +23,7 @@ const getEdges = (nodes) => {
                     id: "e" + sourceId + "-" + targetId,
                     source: sourceId,
                     target: targetId,
+                    animated: true,
                     type: "removeButton",
                 });
             });

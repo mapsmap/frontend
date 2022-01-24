@@ -14,30 +14,26 @@ const useStore = create(set => ({
             id: "0",
             data: { label: "Root" },
             childNodes: ["1", "2"],
-            type: "output",
-            targetPosition: "left",
+            type: "rootNode",
             position: { x: 0, y: 0 }
         },
         {
             id: "1",
             data: { label: "Child 1" },
             childNodes: ["3"],
-            sourcePosition: "right",
-            targetPosition: "left",
+            type: "childNode",
             position: { x: -250, y: 80 }
         },
         {
             id: "2",
             data: { label: "Child 2" },
-            sourcePosition: "right",
-            targetPosition: "left",
+            type: "childNode",
             position: { x: -250, y: -80 }
         },
         {
             id: "3",
             data: { label: "Child 1.1" },
-            sourcePosition: "right",
-            targetPosition: "left",
+            type: "childNode",
             position: { x: -500, y: 80 }
         },
     ],

@@ -1,8 +1,14 @@
 import React from "react";
 import ReactFlow, { Background } from "react-flow-renderer";
+import RootNode from "./RootNode";
+import ChildNode from "./ChildNode";
 import RemoveButtonEdge from "./RemoveButtonEdge";
 import useStore from "../store";
 
+const nodeTypes = {
+    rootNode: RootNode,
+    childNode: ChildNode
+}
 const edgeTypes = {
     removeButton: RemoveButtonEdge
 }
@@ -41,6 +47,7 @@ export default function Nodes() {
         <ReactFlow
             elements={elements}
             onLoad={fitView}
+            nodeTypes={nodeTypes}
             edgeTypes={edgeTypes}
         >
             <Background color="#aaa" gap={16} />

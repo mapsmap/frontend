@@ -1,6 +1,25 @@
 import create from "zustand";
 import produce from "immer";
 
+const addChildNode = (state, targetId) => {
+    return produce(state, draft => {
+        const targetNode = draft.nodes.find(node => node.id === targetId);
+        const x = targetNode.position.x - 250;
+        const y = targetNode.position.y;
+
+        // TODO: use hash or unique id
+        const id = Math.floor(Math.random() * 1000000).toString();
+        const newNode = { id: id, data: { label: "" }, type: "childNode", position: { x: x, y: y } };
+        const nodes = draft.nodes;
+        nodes.push(newNode);
+
+        if (!targetNode.childNodes) {
+            targetNode.childNodes = [];
+        }
+        targetNode.childNodes.push(id);
+    })
+}
+
 const addEdge = (state, sourceId, targetId) => {
     return produce(state, draft => {
         const targetNode = draft.nodes.find(node => node.id === targetId);
@@ -49,8 +68,8 @@ const useStore = create(set => ({
             position: { x: -500, y: 80 }
         },
     ],
-    addNode: (node, targetId) =>
-        set(state => ({ nodes: [...state.nodes, node] })),
+    addChildNode: (targetId) =>
+        set(state => addChildNode(state, targetId)),
     addEdge: (sourceId, targetId) =>
         set(state => addEdge(state, sourceId, targetId)),
     removeEdge: (sourceId, targetId) =>

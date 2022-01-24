@@ -1,5 +1,5 @@
 import create from "zustand";
-import produce, { produceWithPatches } from "immer";
+import produce from "immer";
 
 const removeEdge = (state, sourceId, targetId) => {
     return produce(state, draft => {

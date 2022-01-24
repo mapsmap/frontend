@@ -8,7 +8,7 @@ const edgeTypes = {
 }
 
 const fitView = (reactFlowInstance) => {
-    // console.log('Flow loaded:', reactFlowInstance);
+    // console.log("Flow loaded:", reactFlowInstance);
     reactFlowInstance.fitView();
 };
 

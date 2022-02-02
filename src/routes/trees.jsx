@@ -1,7 +1,7 @@
 import ReactFlow, { Background } from "react-flow-renderer";
-import RootNode from "./RootNode";
-import ChildNode from "./ChildNode";
-import RemoveButtonEdge from "./RemoveButtonEdge";
+import RootNode from "../components/RootNode";
+import ChildNode from "../components/ChildNode";
+import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import useStore from "../store";
 
 const nodeTypes = {
@@ -37,7 +37,7 @@ const getEdges = (nodes) => {
     return edges;
 };
 
-export default function Nodes() {
+export default function Tree() {
     const nodes = useStore(state => state.nodes);
     const edges = getEdges(nodes);
     const elements = [...nodes, ...edges];

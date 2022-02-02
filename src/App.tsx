@@ -1,11 +1,11 @@
 import "./App.css";
 import React from "react";
-import Nodes from "./components/Nodes";
+import Tree from "./routes/trees";
 
 function App() {
   return (
     <div className="App">
-      <Nodes />
+      <Tree />
     </div>
   );
 }

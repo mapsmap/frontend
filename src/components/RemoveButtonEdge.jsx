@@ -11,7 +11,7 @@ import "./RemoveButtonEdge.css";
 const foreignObjectSize = 20;
 
 const splitEdgeId = (edgeId) => {
-    const re = /e([^-]*)-([^-]*)/;
+    const re = /edge:([^-]*)-([^-]*)/;
     const idArray = re.exec(edgeId);
 
     return {

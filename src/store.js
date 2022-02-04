@@ -131,11 +131,21 @@ const createStore = (set) => ({
         set(state => updateNodePosition(state, nodeCidString, newPosition))
 })
 
+const removeLocalData = async () => {
+    try {
+        const dbs = await window.indexedDB.databases()
+        dbs.forEach(db => { window.indexedDB.deleteDatabase(db.name) })
+    } catch (err) {
+        console.log("unable to clear Indexed DB");
+    }
+}
+
 // Offline support and collaboration
 const roomName = "mapsmap";
 const ydoc = new Y.Doc();
 // eslint-disable-next-line no-unused-vars
 //const persistence = new IndexeddbPersistence(roomName, ydoc);
+removeLocalData();
 // eslint-disable-next-line no-unused-vars
 const provider = new WebrtcProvider(roomName, ydoc);
 

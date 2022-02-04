@@ -34,12 +34,10 @@ const updateNodeReference = async ({
         // old reference is root node
         // update head
         setHead(newNodeCidString);
-        console.log("new head:", newNodeCidString);
         return;
     }
 
     Object.entries(nodes).forEach(async ([matchOrigCidString, matchOrig]) => {
-        console.log(matchOrig.sources);
         if (matchOrig.sources.includes(oldNodeCidString)) {
             // this is a parent node of the old reference
             // create parent node using new reference

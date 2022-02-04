@@ -135,7 +135,7 @@ const createStore = (set) => ({
 const roomName = "mapsmap";
 const ydoc = new Y.Doc();
 // eslint-disable-next-line no-unused-vars
-const persistence = new IndexeddbPersistence(roomName, ydoc);
+//const persistence = new IndexeddbPersistence(roomName, ydoc);
 // eslint-disable-next-line no-unused-vars
 const provider = new WebrtcProvider(roomName, ydoc);
 

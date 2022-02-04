@@ -27,7 +27,7 @@ const getRelevantNodeCidStrings = ({ currentCidString, nodes, cidStrings }) => {
 
     nodes[currentCidString].sources.forEach(src => {
         cidStrings.push(...getRelevantNodeCidStrings({
-            currentCidString: src.toString(),
+            currentCidString: src,
             nodes,
             cidStrings
         }));
@@ -42,7 +42,7 @@ const getFlowNode = ({ cidString, head, items, nodes, nodesMetadata }) => {
 
     // get type
     let type = "childNode";
-    if (cidString === head.toString()) {
+    if (cidString === head) {
         type = "rootNode";
     }
 
@@ -63,7 +63,7 @@ const getFlowEdges = ({ cidString, nodes }) => {
     const node = nodes[cidString];
 
     node.sources.forEach(src => {
-        var sourceCidString = src.toString();
+        var sourceCidString = src;
         flowEdges.push({
             id: "edge:" + sourceCidString + "-" + targetCidString,
             source: sourceCidString,
@@ -77,9 +77,13 @@ const getFlowEdges = ({ cidString, nodes }) => {
 }
 
 const getTreeElements = ({ head, items, nodes, nodesMetadata }) => {
+    if (nodes === undefined || items === undefined || nodesMetadata === undefined) {
+        return [];
+    }
+
     // get relevant nodes recursively
     const relevantNodeCidStrings = [...new Set(
-        getRelevantNodeCidStrings({ currentCidString: head.toString(), nodes, cidStrings: [] }))
+        getRelevantNodeCidStrings({ currentCidString: head, nodes, cidStrings: [] }))
     ];
 
     var elements = [];
@@ -97,9 +101,13 @@ const getTreeElements = ({ head, items, nodes, nodesMetadata }) => {
 
 export default function Tree() {
     const head = useStore(state => state.head);
+    console.log("head:", head);
     const items = useStore(state => state.items);
+    //console.log("items:", items);
     const nodes = useStore(state => state.nodes);
+    //console.log("nodes:", nodes);
     const nodesMetadata = useStore(state => state.nodesMetadata);
+    //console.log("nodesMetadata:", nodesMetadata);
     // TODO: only re-render when head or nodesMetadata changes
     const elements = getTreeElements({ head, items, nodes, nodesMetadata });
 

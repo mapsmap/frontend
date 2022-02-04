@@ -4,9 +4,8 @@ import * as Y from "yjs";
 import yjs from "zustand-middleware-yjs";
 import { WebrtcProvider } from "y-webrtc";
 import { IndexeddbPersistence } from "y-indexeddb";
-import { CID } from "multiformats/cid";
 
-const addChildNode = (state, targetId) => {
+const addChildNode = (state, targetNodeCidString) => {
     return produce(state, draft => {
         console.log("TODO: add child node");
         //const targetNode = draft.nodes.find(node => node.id === targetId);
@@ -28,7 +27,7 @@ const addChildNode = (state, targetId) => {
     });
 }
 
-const addEdge = (state, sourceId, targetId) => {
+const addEdge = (state, sourceNodeCidString, targetNodeCidString) => {
     return produce(state, draft => {
         console.log("TODO: add edge");
         //const targetNode = draft.nodes.find(node => node.id === targetId);
@@ -41,14 +40,6 @@ const addEdge = (state, sourceId, targetId) => {
     });
 }
 
-const removeEdge = (state, sourceId, targetId) => {
-    return produce(state, draft => {
-        console.log("TODO: remove edge");
-        //const targetNode = draft.nodes.find(node => node.id === targetId);
-        //targetNode.childNodes = targetNode.childNodes.filter(id => id !== sourceId);
-    });
-}
-
 const updateNodePosition = (state, nodeCidString, newPosition) => {
     return produce(state, draft => {
         const node = draft.nodesMetadata[nodeCidString];
@@ -56,9 +47,43 @@ const updateNodePosition = (state, nodeCidString, newPosition) => {
     });
 }
 
+const addItem = (state, itemCidString, item) => {
+    return produce(state, draft => {
+        if (!(itemCidString in draft.items)) {
+            draft.items[itemCidString] = item;
+        }
+    });
+}
+
+const addNode = (state, nodeCidString, node, originNodeCidString, nodeMetadata) => {
+    return produce(state, draft => {
+        if (originNodeCidString !== undefined) {
+            // consider this node as a mutation of an existing one
+            // copy metadata of origin node
+            draft.nodesMetadata[nodeCidString] = draft.nodesMetadata[originNodeCidString];
+        }
+        if (nodeMetadata !== undefined) {
+            draft.nodesMetadata[nodeCidString] = nodeMetadata;
+        }
+        if (!draft.nodesMetadata[nodeCidString]) {
+            // metadata is required
+            // set some default values
+            draft.nodesMetadata[nodeCidString] = { position: { x: 0, y: 0 } };
+        }
+        if (!(nodeCidString in draft.nodes)) {
+            draft.nodes[nodeCidString] = node;
+        }
+    });
+}
+
+const setHead = (state, headCidString) => {
+    return produce(state, draft => {
+        draft.head = headCidString;
+    });
+}
 
 const createStore = (set) => ({
-    head: CID.parse("bafyreibsdt652t3mm6bigqfe3yi3jbuumxaohhq7ln7ybc62qr5buuywde"),
+    head: "bafyreibsdt652t3mm6bigqfe3yi3jbuumxaohhq7ln7ybc62qr5buuywde",
     items: {
         "bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru": { type: "text/plain", doc: "" },
         "bafyreicqb5ejcekuu5in4gt55mumurj6mwx2bme6szhi4k3ike4b6ogsea": { type: "text/plain", doc: "Shared planetary computer" },
@@ -70,21 +95,21 @@ const createStore = (set) => ({
     nodes: {
         // Blockchain
         "bafyreiac5hbqg7cp77j7rolx4qvcdfjni4jsfc4b4ek653vbg7qpipxxfq": {
-            title: CID.parse("bafyreiczvrojrlg3zjuftbky4a7d6onqnzeehlkxz5sxqd7xozemspca7q"),
-            content: CID.parse("bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru"),
+            title: "bafyreiczvrojrlg3zjuftbky4a7d6onqnzeehlkxz5sxqd7xozemspca7q",
+            content: "bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru",
             sources: [],
         },
         // Shared planetary file system (IPFS)
         "bafyreib27aurgigq6w75fb5mz3auptewnlwi52sfztj636uucleruucc6m": {
-            title: CID.parse("bafyreigpzmjy5wrbsgfoutjolegcoknzwx55mxqj4vi323wrkosd4bb2oy"),
-            content: CID.parse("bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru"),
-            sources: [CID.parse("bafyreiac5hbqg7cp77j7rolx4qvcdfjni4jsfc4b4ek653vbg7qpipxxfq")],
+            title: "bafyreigpzmjy5wrbsgfoutjolegcoknzwx55mxqj4vi323wrkosd4bb2oy",
+            content: "bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru",
+            sources: ["bafyreiac5hbqg7cp77j7rolx4qvcdfjni4jsfc4b4ek653vbg7qpipxxfq"],
         },
         // Shared planetary computer
         "bafyreibsdt652t3mm6bigqfe3yi3jbuumxaohhq7ln7ybc62qr5buuywde": {
-            title: CID.parse("bafyreicqb5ejcekuu5in4gt55mumurj6mwx2bme6szhi4k3ike4b6ogsea"),
-            content: CID.parse("bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru"),
-            sources: [CID.parse("bafyreib27aurgigq6w75fb5mz3auptewnlwi52sfztj636uucleruucc6m")],
+            title: "bafyreicqb5ejcekuu5in4gt55mumurj6mwx2bme6szhi4k3ike4b6ogsea",
+            content: "bafyreiftel3p7pfepu27tghay2uevewd4gse5pv257owjecrvlwumfjbru",
+            sources: ["bafyreib27aurgigq6w75fb5mz3auptewnlwi52sfztj636uucleruucc6m"],
         },
     },
     nodesMetadata: {
@@ -92,12 +117,16 @@ const createStore = (set) => ({
         "bafyreib27aurgigq6w75fb5mz3auptewnlwi52sfztj636uucleruucc6m": { position: { x: -250, y: 80 } },
         "bafyreibsdt652t3mm6bigqfe3yi3jbuumxaohhq7ln7ybc62qr5buuywde": { position: { x: 0, y: 0 } }
     },
-    addChildNode: (targetId) =>
-        set(state => addChildNode(state, targetId)),
-    addEdge: (sourceId, targetId) =>
-        set(state => addEdge(state, sourceId, targetId)),
-    removeEdge: (sourceId, targetId) =>
-        set(state => removeEdge(state, sourceId, targetId)),
+    addItem: (itemCidString, item) =>
+        set(state => addItem(state, itemCidString, item)),
+    addNode: (nodeCidString, node, originNodeCidString, nodeMetadata) =>
+        set(state => addNode(state, nodeCidString, node, originNodeCidString, nodeMetadata)),
+    setHead: (headCidString) =>
+        set(state => setHead(state, headCidString)),
+    addChildNode: (targetNodeCidString) =>
+        set(state => addChildNode(state, targetNodeCidString)),
+    addEdge: (sourceNodeCidString, targetNodeCidString) =>
+        set(state => addEdge(state, sourceNodeCidString, targetNodeCidString)),
     updateNodePosition: (nodeCidString, newPosition) =>
         set(state => updateNodePosition(state, nodeCidString, newPosition))
 })

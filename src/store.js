@@ -3,7 +3,7 @@ import produce from "immer";
 import * as Y from "yjs";
 import yjs from "zustand-middleware-yjs";
 import { WebrtcProvider } from "y-webrtc";
-import { IndexeddbPersistence } from "y-indexeddb";
+//import { IndexeddbPersistence } from "y-indexeddb";
 
 const addChildNode = (state, targetNodeCidString) => {
     return produce(state, draft => {

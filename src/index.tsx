@@ -7,13 +7,14 @@ import App from "./App";
 import Items from "./routes/items";
 import TextContentPage from "./routes/textContentPage";
 import reportWebVitals from "./reportWebVitals";
+import HomePage from "./routes/homePage";
 
 ReactDOM.render(
   <React.StrictMode>
     <CssBaseline />
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<App />} />
+        <Route path="/" element={<HomePage />} />
         <Route path="trees" element={<App />} />
         <Route path="items" element={<Items />} />
         <Route path="text-content" element={<TextContentPage />} />

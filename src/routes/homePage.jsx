@@ -2,10 +2,11 @@ import Header from "../components/Header";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import HomeImage from "../components/HomeImage";
-import gif from "../assets/earth.jpeg"
+//import gif from "../assets/earth.jpeg"
 
 
-const homeGif = <img src = {gif} />
+//const homeGif = <img src = {gif} />
+//earth = {homeGif}
 
 
 export default function HomePage(){
@@ -19,7 +20,7 @@ export default function HomePage(){
                         direction="column"
                         justifyContent="center"
                         alignItems="center">
-                    <HomeImage earth = {homeGif}/>
+                    <HomeImage/>
                 </Grid>
             </main>   
         </Container>

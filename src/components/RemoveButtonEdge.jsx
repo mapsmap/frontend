@@ -1,79 +1,28 @@
-import React from "react";
 import useStore from "../store";
 import {
     getBezierPath,
     getEdgeCenter,
     getMarkerEnd,
 } from "react-flow-renderer";
-import { cloneDeep } from "lodash";
-import { getCidString } from "../utils";
 
 import "./RemoveButtonEdge.css";
 
 const foreignObjectSize = 20;
 
 const splitEdgeId = (edgeId) => {
-    const re = /edge:([^-]*)-([^-]*)/;
+    const re = /e([^-]*)-([^-]*)/;
     const idArray = re.exec(edgeId);
 
     return {
-        sourceNodeCidString: idArray[1],
-        targetNodeCidString: idArray[2]
+        sourceId: idArray[1],
+        targetId: idArray[2]
     }
 }
 
-const updateNodeReference = async ({
-    head,
-    setHead,
-    nodes,
-    addNode,
-    oldNodeCidString,
-    newNodeCidString
-}) => {
-    if (head === oldNodeCidString) {
-        // old reference is root node
-        // update head
-        setHead(newNodeCidString);
-        return;
-    }
-
-    Object.entries(nodes).forEach(async ([matchOrigCidString, matchOrig]) => {
-        if (matchOrig.sources.includes(oldNodeCidString)) {
-            // this is a parent node of the old reference
-            // create parent node using new reference
-            var matchNew = cloneDeep(matchOrig);
-            matchNew.sources = matchOrig.sources.map(
-                src => src === oldNodeCidString ? newNodeCidString : src
-            );
-
-            const matchNewCidString = await getCidString(matchNew);
-            // persist new parent node
-            addNode(matchNewCidString, matchNew, matchOrigCidString);
-            // recursively update parent nodes parents
-            updateNodeReference({
-                head, setHead, nodes, addNode,
-                oldNodeCidString: matchOrigCidString,
-                newNodeCidString: matchNewCidString
-            });
-        }
-    });
-}
-
-const onClickEdge = async ({ event, edgeId, head, setHead, nodes, addNode }) => {
-    event.stopPropagation();
-    const { sourceNodeCidString, targetNodeCidString } = splitEdgeId(edgeId);
-
-    const targetNodeOrig = nodes[targetNodeCidString];
-    let targetNodeNew = cloneDeep(targetNodeOrig);
-    targetNodeNew.sources = targetNodeOrig.sources.filter(src => src !== sourceNodeCidString);
-
-    const targetNodeNewCidString = await getCidString(targetNodeNew);
-    addNode(targetNodeNewCidString, targetNodeNew, targetNodeCidString);
-    updateNodeReference({
-        head, setHead, nodes, addNode,
-        oldNodeCidString: targetNodeCidString,
-        newNodeCidString: targetNodeNewCidString
-    });
+const onEdgeClick = (evt, edgeId, removeEdge) => {
+    evt.stopPropagation();
+    const { sourceId, targetId } = splitEdgeId(edgeId);
+    removeEdge(sourceId, targetId);
 }
 
 export default function RemoveButtonEdge({
@@ -89,10 +38,7 @@ export default function RemoveButtonEdge({
     arrowHeadType,
     markerEndId,
 }) {
-    const head = useStore(state => state.head);
-    const setHead = useStore(state => state.setHead);
-    const nodes = useStore(state => state.nodes);
-    const addNode = useStore(state => state.addNode);
+    const removeEdge = useStore(state => state.removeEdge);
 
     const edgePath = getBezierPath({
         sourceX,
@@ -130,7 +76,7 @@ export default function RemoveButtonEdge({
                 <div>
                     <button
                         className="edgebutton"
-                        onClick={(event) => onClickEdge({ event, edgeId: id, head, setHead, nodes, addNode })}
+                        onClick={(event) => onEdgeClick(event, id, removeEdge)}
                     >
                         ×
                     </button>

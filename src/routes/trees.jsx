@@ -8,7 +8,6 @@ const nodeTypes = {
     rootNode: RootNode,
     childNode: ChildNode
 }
-
 const edgeTypes = {
     removeButton: RemoveButtonEdge
 }
@@ -16,100 +15,32 @@ const edgeTypes = {
 const fitView = (reactFlowInstance) => {
     // console.log("Flow loaded:", reactFlowInstance);
     reactFlowInstance.fitView();
-}
+};
 
-const getRelevantNodeCidStrings = ({ currentCidString, nodes, cidStrings }) => {
-    if (cidStrings.includes(currentCidString)) {
-        return cidStrings;
-    }
-
-    cidStrings.push(currentCidString);
-
-    nodes[currentCidString].sources.forEach(src => {
-        cidStrings.push(...getRelevantNodeCidStrings({
-            currentCidString: src,
-            nodes,
-            cidStrings
-        }));
-    });
-    return cidStrings;
-}
-
-const getFlowNode = ({ cidString, head, items, nodes, nodesMetadata }) => {
-    // get title
-    const titleCidString = nodes[cidString].title;
-    const title = items[titleCidString].doc;
-
-    // get type
-    let type = "childNode";
-    if (cidString === head) {
-        type = "rootNode";
-    }
-
-    // get position
-    const position = nodesMetadata[cidString].position;
-
-    return {
-        id: cidString,
-        data: { label: title },
-        type: type,
-        position: position
-    }
-}
-
-const getFlowEdges = ({ cidString, nodes }) => {
-    var flowEdges = [];
-    const targetCidString = cidString;
-    const node = nodes[cidString];
-
-    node.sources.forEach(src => {
-        var sourceCidString = src;
-        flowEdges.push({
-            id: "edge:" + sourceCidString + "-" + targetCidString,
-            source: sourceCidString,
-            target: targetCidString,
-            animated: true,
-            type: "removeButton",
+const getEdges = (nodes) => {
+    let edges = [];
+    nodes
+        .filter(node => node.childNodes)
+        .forEach(node => {
+            const targetId = node.id;
+            node.childNodes.forEach(sourceId => {
+                edges.push({
+                    id: "e" + sourceId + "-" + targetId,
+                    source: sourceId,
+                    target: targetId,
+                    animated: true,
+                    type: "removeButton",
+                });
+            });
         });
-    });
 
-    return flowEdges;
-}
-
-const getTreeElements = ({ head, items, nodes, nodesMetadata }) => {
-    if (nodes === undefined || items === undefined || nodesMetadata === undefined) {
-        return [];
-    }
-
-    // get relevant nodes recursively
-    const relevantNodeCidStrings = [...new Set(
-        getRelevantNodeCidStrings({ currentCidString: head, nodes, cidStrings: [] }))
-    ];
-
-    var elements = [];
-    for (var cidString of relevantNodeCidStrings) {
-        // add node
-        elements.push(getFlowNode({
-            cidString, head, items, nodes, nodesMetadata
-        }))
-        // add nodes edges
-        elements.push(...getFlowEdges({ cidString, nodes }))
-    }
-
-    return elements;
-}
+    return edges;
+};
 
 export default function Tree() {
-    const head = useStore(state => state.head);
-    console.log("head:", head);
-    const items = useStore(state => state.items);
-    //console.log("items:", items);
     const nodes = useStore(state => state.nodes);
-    //console.log("nodes:", nodes);
-    const nodesMetadata = useStore(state => state.nodesMetadata);
-    //console.log("nodesMetadata:", nodesMetadata);
-    // TODO: only re-render when head or nodesMetadata changes
-    const elements = getTreeElements({ head, items, nodes, nodesMetadata });
+    const edges = getEdges(nodes);
+    const elements = [...nodes, ...edges];
 
     const addEdge = useStore(state => state.addEdge);
     const onConnectEdge = ({ source, target }) => addEdge(source, target);

@@ -6,6 +6,7 @@ import { WebrtcProvider } from "y-webrtc";
 //import { IndexeddbPersistence } from "y-indexeddb";
 
 import { generateRandomId } from "./utils";
+import { Topic } from "./Models/Topic";
 
 
 const addChildNode = (state, targetId) => {
@@ -71,6 +72,22 @@ const updateNodePosition = (state, nodeId, newPosition) => {
     })
 }
 
+
+const addTopic = (state, name) => {
+    return produce(state, draft => {
+        const id = generateRandomId();
+        const newTopic = new Topic(id, name, 0);
+        draft.topics[id] = newTopic;
+    })
+}
+
+
+
+
+
+const a = new Topic(1, "Environment", 100);
+const b = new Topic(2, "Longevity", 50000);
+
 const createStore = (set) => ({
     nodes: [
         {
@@ -109,6 +126,24 @@ const createStore = (set) => ({
             position: { x: -500, y: 0 }
         },
     ],
+    //backers: [
+    //    {
+    //        "userID": "123", "firstName": "joe", "lastName": "johnson",
+    //        "Projects": [], "wallet": "EFJCKD1000030301"
+    //    },
+    //    {
+    //        "userID": "133", "firstName": "luke", "lastName": "leddy",
+    //        "Projects": [], "wallet": "EFJCKDRi30191821"
+    //    },
+    //    {
+    //        "userID": "143", "firstName": "frank", "lastName": "fromisland",
+    //        "Projects": [], "wallet": "DJABEFDj029348301"
+    //    }
+    //],
+    topics: {
+        1: a,
+        2: b
+    },
     addChildNode: (targetId) =>
         set(state => addChildNode(state, targetId)),
     removeNode: (nodeId) =>
@@ -118,7 +153,9 @@ const createStore = (set) => ({
     removeEdge: (sourceId, targetId) =>
         set(state => removeEdge(state, sourceId, targetId)),
     updateNodePosition: (nodeId, newPosition) =>
-        set(state => updateNodePosition(state, nodeId, newPosition))
+        set(state => updateNodePosition(state, nodeId, newPosition)),
+    addTopic: (name) =>
+        set(state => addTopic(state, name)),
 })
 
 const removeLocalData = async () => {

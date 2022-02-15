@@ -2,6 +2,7 @@ import Header from "../components/Header";
 import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import HomeImage from "../components/HomeImage";
+import useStore from "../store";
 //import gif from "../assets/earth.jpeg"
 
 
@@ -9,20 +10,24 @@ import HomeImage from "../components/HomeImage";
 //earth = {homeGif}
 
 
-export default function HomePage(){
+export default function HomePage() {
+    const addTopic = useStore(state => state.addTopic);
+
+
     return (
-        <Container maxWidth = "lg">
-            <Header title = "Map The Future">
-             
+        <Container maxWidth="lg">
+            <Header title="Map The Future">
+
             </Header>
             <main>
                 <Grid container
-                        direction="column"
-                        justifyContent="center"
-                        alignItems="center">
-                    <HomeImage/>
+                    direction="column"
+                    justifyContent="center"
+                    alignItems="center">
+                    <HomeImage />
                 </Grid>
-            </main>   
+                <button onClick={e => addTopic("Test")}>Create Test Topic</button>
+            </main>
         </Container>
     );
 }

@@ -4,43 +4,30 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography';
+import useStore from "../store";
 
-
-
-function card(name) {return(
-  <Card sx={{height:100, width:100}} style ={{backgroundColor: "#F7F773"}}>
-    <CardContent sx={{padding: 4}}>
-      <Typography sx={{ fontSize: 14}} align="center">{name}</Typography>
+function TopicCard(props) {
+  return <Card sx={{ height: 100, width: 100 }} style={{ backgroundColor: "#F7F773" }} key={props.name}>
+    <CardContent sx={{ padding: 4 }}>
+      <Typography sx={{ fontSize: 14 }} align="center">{props.name}</Typography>
     </CardContent>
-  </Card>)
+  </Card>
 }
 
+export default function HomeGrid(props) {
+  const topics = useStore(state => state.topics);
 
-export default function HomeGrid(props){
-    return (
-      <Container maxWidth="sm">
-          <Box sx={{ width: '100%', padding: "5%"}}>
-            <Grid container spacing = {5} rowSpacing = {5} columnSpacing={1} direction="row">
-                <Grid item xs={4}>
-                  {card("topic 1")}
-                </Grid>
-                <Grid item xs={4}>
-                  {card("topic 2")}
-                </Grid>
-                <Grid item xs={4}>
-                  {card("topic 3")}
-                </Grid>
-                <Grid item xs={4}>
-                  {card("topic 4")}
-                </Grid>
-                <Grid item xs={4}>
-                  {card("topic 5")}
-                </Grid>
-                <Grid item xs={4}>
-                  {card("topic 6")}
-                </Grid>
+  return (
+    <Container maxWidth="sm">
+      <Box sx={{ width: '100%', padding: "5%" }}>
+        <Grid container spacing={5} rowSpacing={5} columnSpacing={1} direction="row">
+          {Object.keys(topics).map(key => (
+            <Grid item xs={4} key={topics[key].id} >
+              <TopicCard name={topics[key].name} />
             </Grid>
-            </Box>
-      </Container>
-      );
-    }
+          ))}
+        </Grid>
+      </Box>
+    </Container>
+  );
+}

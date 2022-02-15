@@ -4,6 +4,7 @@ import useStore from "../store";
 
 const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePosition = "right" }) => {
     const addChildNode = useStore(state => state.addChildNode);
+    const removeNode = useStore(state => state.removeNode);
 
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
@@ -17,6 +18,9 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
                 position={targetPosition}
                 isConnectable={isConnectable}
             />
+            <div>
+                <button onClick={e => removeNode(id)}>x</button>
+            </div>
             {data.label}
             <Handle
                 type="source"

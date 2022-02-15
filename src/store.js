@@ -15,7 +15,12 @@ const addChildNode = (state, targetId) => {
         const y = targetNode.position.y;
 
         const id = generateRandomId();
-        const newNode = { id: id, data: { label: "New Node" }, type: "childNode", position: { x: x, y: y } };
+        const newNode = {
+            id: id,
+            data: { label: "New Node" },
+            type: "childNode",
+            position: { x: x, y: y }
+        };
         const nodes = draft.nodes;
         nodes.push(newNode);
 
@@ -24,6 +29,20 @@ const addChildNode = (state, targetId) => {
         }
         targetNode.childNodes.push(id);
     })
+}
+
+const removeNode = (state, nodeId) => {
+    return produce(state, draft => {
+        // remove edges pointing to the node
+        draft.nodes.forEach(node => {
+            if (node.childNodes) {
+                node.childNodes = node.childNodes.filter(id => id !== nodeId);
+            }
+        });
+
+        // remove node
+        draft.nodes = draft.nodes.filter(node => node.id !== nodeId);
+    });
 }
 
 const addEdge = (state, sourceId, targetId) => {
@@ -92,6 +111,8 @@ const createStore = (set) => ({
     ],
     addChildNode: (targetId) =>
         set(state => addChildNode(state, targetId)),
+    removeNode: (nodeId) =>
+        set(state => removeNode(state, nodeId)),
     addEdge: (sourceId, targetId) =>
         set(state => addEdge(state, sourceId, targetId)),
     removeEdge: (sourceId, targetId) =>

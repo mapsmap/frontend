@@ -5,7 +5,6 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography';
 import useStore from "../store";
-import VideoBox from './VideoBox';
 
 function TopicCard(props) {
   return <Card sx={{ height: 100, width: 100 }} style={{ backgroundColor: "#F7F773" }} key={props.name}>

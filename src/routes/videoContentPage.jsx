@@ -1,7 +1,5 @@
-import Grid from "@mui/material/Grid";
 import Container from "@mui/material/Container";
 import Header from "../components/Header";
-import TextContent from "../components/TextContent";
 import TextContentSidebar from "../components/TextContentSidebar";
 import VideoBox from "../components/VideoBox"
 
@@ -18,7 +16,7 @@ export default function VideoContentPage() {
     return (
         <Container maxWidth="lg">
             <Header title="Map The Future">
-                </Header>
+            </Header>
             <main>
                 <VideoBox></VideoBox>
                 <TextContentSidebar relatedNodes={sidebar.relatedNodes}>

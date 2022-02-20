@@ -1,0 +1,51 @@
+name: Build and Deploy Frontend
+on: 
+  push:
+    branches:
+      - main
+jobs:
+  build-and-deploy:
+    concurrency: ci-${{ github.ref }}
+    runs-on: ubuntu-latest
+    env:
+      AWS_ACCESS_KEY_ID: ${{ secrets.PRO_AWS_ACCESS_KEY_ID }}
+      AWS_SECRET_ACCESS_KEY: ${{ secrets.PRO_AWS_SECRET_ACCESS_KEY }}
+      AWS_REGION: ${{ secrets.PRO_AWS_REGION }}
+      AWS_BUCKET_NAME: ${{ secrets.PRO_AWS_BUCKET_NAME }}
+      AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.PRO_AWS_CLOUDFRONT_DISTRIBUTION_ID }}
+
+    steps:
+      - name: Checkout 🛎️
+        uses: actions/checkout@v2
+
+      - name: Install and Build 🔧
+        run: |
+          npm ci
+          npm run build
+
+      - name: Deploy to GitHub Pages 🚀
+        uses: JamesIves/github-pages-deploy-action@v4.2.2
+        with:
+          branch: gh-pages # The branch the action should deploy to.
+          folder: build # The folder the action should deploy.
+          git-config-name: Timo Sutterer
+          git-config-email: hi@timo-sutterer.de
+          repository-name: mapsmap/mapsmap.github.io # The repository the action should deploy to.
+          token: ${{ secrets.CROSS_REPO_DEPLOY_ACCESS_TOKEN }}
+          single-commit: true
+          clean: true
+          silent: true
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ env.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ env.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+      - name: Configure CloudFront
+        run: aws configure set preview.cloudfront true
+      - name: Upload files (and delete files that do not exist locally)
+        run: aws s3 sync --acl public-read --delete ./public s3://$AWS_BUCKET_NAME
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+

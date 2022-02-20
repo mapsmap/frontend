@@ -10,6 +10,7 @@ import reportWebVitals from "./reportWebVitals";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
 import VideoContentPage from "./routes/videoContentPage"
+import UploadPage from "./routes/uploadPage"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -26,6 +27,7 @@ ReactDOM.render(
         <Route path="video-content" element={<VideoContentPage/>}>
           <Route path=":videoId" element={<VideoContentPage/>}/>
         </Route>
+        <Route path = "upload" element ={<UploadPage/>}/>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

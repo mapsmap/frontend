@@ -8,6 +8,8 @@ import Items from "./routes/items";
 import TextContentPage from "./routes/textContentPage";
 import reportWebVitals from "./reportWebVitals";
 import HomePage from "./routes/homePage";
+import TopicPage from "./routes/topicPage"
+import VideoContentPage from "./routes/videoContentPage"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -18,6 +20,12 @@ ReactDOM.render(
         <Route path="trees" element={<App />} />
         <Route path="items" element={<Items />} />
         <Route path="text-content" element={<TextContentPage />} />
+        <Route path="topics" element={<TopicPage />}>
+          <Route path=":topicName" element={<TopicPage />} />
+        </Route>
+        <Route path="video-content" element={<VideoContentPage/>}>
+          <Route path=":videoId" element={<VideoContentPage/>}/>
+        </Route>
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

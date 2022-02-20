@@ -5,6 +5,7 @@ import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography';
 import useStore from "../store";
+import VideoBox from './VideoBox';
 
 function TopicCard(props) {
   return <Card sx={{ height: 100, width: 100 }} style={{ backgroundColor: "#F7F773" }} key={props.name}>
@@ -26,6 +27,8 @@ export default function HomeGrid(props) {
               <TopicCard name={topics[key].name} />
             </Grid>
           ))}
+          <Grid item xs={4} >
+          </Grid>
         </Grid>
       </Box>
     </Container>

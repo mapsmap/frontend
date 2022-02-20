@@ -1,11 +1,7 @@
 import Box from "@mui/material/Box"
 
 
-var mp = new MuiPlayer({
-    containter: '#mui-player',
-    title:'Title',
-    src: './static/media/media.mp4'
-})
+
 
 export default function VideoBox(){
     return(

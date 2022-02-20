@@ -102,7 +102,7 @@ const createStore = (set) => ({
             data: { label: "Shared planetary file system (IPFS)" },
             childNodes: ["4"],
             type: "childNode",
-            position: { x: -250, y: 80 }
+            position: { x: -250, y: 100 }
         },
         {
             id: "2",
@@ -116,7 +116,7 @@ const createStore = (set) => ({
             data: { label: "Shared planetary processing (ETH)" },
             childNodes: ["4"],
             type: "childNode",
-            position: { x: -250, y: -80 }
+            position: { x: -250, y: -100 }
         },
         {
             id: "4",

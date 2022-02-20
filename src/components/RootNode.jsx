@@ -21,6 +21,8 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
                 isConnectable={isConnectable}
             />
 
+            {data.label}
+
             <Grid container justify="space-between">
                 <Grid item>
                     <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
@@ -28,8 +30,6 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
                     </IconButton>
                 </Grid>
             </Grid>
-
-            {data.label}
         </div>
     );
 }

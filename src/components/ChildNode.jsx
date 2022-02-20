@@ -23,6 +23,8 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
                 isConnectable={isConnectable}
             />
 
+            {data.label}
+
             <Grid container justify="space-between">
                 <Grid item>
                     <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
@@ -35,8 +37,6 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
                     </IconButton>
                 </Grid>
             </Grid>
-
-            {data.label}
 
             <Handle
                 type="source"

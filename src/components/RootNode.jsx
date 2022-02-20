@@ -1,5 +1,8 @@
-import React, { memo } from "react";
+import { memo } from "react";
 import { Handle } from "react-flow-renderer";
+import Grid from "@mui/material/Grid";
+import IconButton from "@mui/material/IconButton";
+import AddIcon from "@mui/icons-material/Add";
 import useStore from "../store";
 
 const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
@@ -17,6 +20,15 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
                 position={targetPosition}
                 isConnectable={isConnectable}
             />
+
+            <Grid container justify="space-between">
+                <Grid item>
+                    <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
+                        <AddIcon />
+                    </IconButton>
+                </Grid>
+            </Grid>
+
             {data.label}
         </div>
     );

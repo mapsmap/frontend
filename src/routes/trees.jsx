@@ -1,8 +1,11 @@
 import ReactFlow, { Background } from "react-flow-renderer";
+import Fab from "@mui/material/Fab";
+import SaveIcon from "@mui/icons-material/Save";
 import RootNode from "../components/RootNode";
 import ChildNode from "../components/ChildNode";
 import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import useStore from "../store";
+import { saveNodes } from "../algorand";
 
 const nodeTypes = {
     rootNode: RootNode,
@@ -49,15 +52,30 @@ export default function Tree() {
     const onNodeDragStop = (event, node) => updateNodePosition(node.id, node.position);
 
     return (
-        <ReactFlow
-            elements={elements}
-            nodeTypes={nodeTypes}
-            edgeTypes={edgeTypes}
-            onLoad={fitView}
-            onConnect={onConnectEdge}
-            onNodeDragStop={onNodeDragStop}
-        >
-            <Background color="#aaa" gap={16} />
-        </ReactFlow>
+        <>
+            <ReactFlow
+                elements={elements}
+                nodeTypes={nodeTypes}
+                edgeTypes={edgeTypes}
+                onLoad={fitView}
+                onConnect={onConnectEdge}
+                onNodeDragStop={onNodeDragStop}
+            >
+                <Background color="#aaa" gap={16} />
+            </ReactFlow>
+            <Fab
+                onClick={e => saveNodes(nodes)}
+                variant="extended"
+                sx={{
+                    position: "fixed",
+                    zIndex: "10",
+                    bottom: "1rem",
+                    right: "1rem",
+                }}
+            >
+                <SaveIcon sx={{ mr: 1 }} />
+                Save
+            </Fab>
+        </>
     )
 }

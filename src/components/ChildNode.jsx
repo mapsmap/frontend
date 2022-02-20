@@ -2,6 +2,7 @@ import { memo } from "react";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AddIcon from "@mui/icons-material/Add";
 import { Handle } from "react-flow-renderer";
 import useStore from "../store";
 
@@ -23,6 +24,11 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
             />
 
             <Grid container justify="space-between">
+                <Grid item>
+                    <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
+                        <AddIcon />
+                    </IconButton>
+                </Grid>
                 <Grid item sx={{ marginLeft: "auto" }} >
                     <IconButton onClick={e => removeNode(id)} size="small" color="error" aria-label="delete node" component="span">
                         <DeleteIcon />

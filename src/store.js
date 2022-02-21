@@ -7,6 +7,7 @@ import yjs from "zustand-middleware-yjs";
 
 import { generateRandomId } from "./utils";
 import { Topic } from "./Models/Topic";
+import { exampleText } from "./exampleContent";
 
 
 const addChildNode = (state, targetId) => {
@@ -16,14 +17,21 @@ const addChildNode = (state, targetId) => {
         const y = targetNode.position.y;
 
         const id = generateRandomId();
+        const newContent = {
+            id: id,
+            type: "text",
+            label: "New Node",
+            text: "",
+        };
+        draft.content[id] = newContent;
+
         const newNode = {
             id: id,
-            data: { label: "New Node" },
+            contentId: id,
             type: "childNode",
             position: { x: x, y: y }
         };
-        const nodes = draft.nodes;
-        nodes.push(newNode);
+        draft.nodes.push(newNode);
 
         if (!targetNode.childNodes) {
             targetNode.childNodes = [];
@@ -92,40 +100,72 @@ const createStore = (set) => ({
     nodes: [
         {
             id: "0",
-            data: { label: "Shared planetary computer" },
+            contentId: "0",
             childNodes: ["1", "2", "3"],
             type: "rootNode",
             position: { x: 0, y: 0 }
         },
         {
             id: "1",
-            data: { label: "Shared planetary file system (IPFS)" },
+            contentId: "1",
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: 100 }
         },
         {
             id: "2",
-            data: { label: "Shared planetary database (IPDB)" },
+            contentId: "2",
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: 0 }
         },
         {
             id: "3",
-            data: { label: "Shared planetary processing (ETH)" },
+            contentId: "3",
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: -100 }
         },
         {
             id: "4",
-            data: { label: "\"Blockchain\"" },
+            contentId: "4",
             childNodes: ["4"],
             type: "childNode",
             position: { x: -500, y: 0 }
         },
     ],
+    content: {
+        "0": {
+            id: "0",
+            type: "text",
+            label: "Shared planetary computer",
+            text: exampleText,
+        },
+        "1": {
+            id: "1",
+            type: "text",
+            label: "Shared planetary file system (IPFS)",
+            text: exampleText,
+        },
+        "2": {
+            id: "2",
+            type: "text",
+            label: "Shared planetary database (IPDB)",
+            text: exampleText,
+        },
+        "3": {
+            id: "3",
+            type: "text",
+            label: "Shared planetary processing (ETH)",
+            text: exampleText,
+        },
+        "4": {
+            id: "4",
+            type: "text",
+            label: "\"Blockchain\"",
+            text: exampleText,
+        },
+    },
     topics: {
         1: a,
         2: b

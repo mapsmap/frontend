@@ -49,44 +49,44 @@ export default function TopicPage() {
     // findTopics(topics)
 
     return (
-        <Container>
-            <Header title="Map The Future">
-            </Header>
-            <main>
-                <Container justifyContent="flex" alignItems="flex" maxWidth="lg">
-                    <Box display="flex" justifyContent="center" alignItems="flex" sx={{ padding: "2%", height: "150px", border: "1px solid black" }}>
-                        <Grid containter
-                            spacing={0}
-                            direction="column"
-                            justifyContent="center"
-                            alignItems="center"
-                            style={{ minHeight: '100vh' }}>
-                            <Grid item xs={3}>
-                                {headerCard("Topic")}
+        <>
+            <Header title="Map The Future" />
+            <Container>
+                <main>
+                    <Container justifyContent="flex" alignItems="flex" maxWidth="lg">
+                        <Box display="flex" justifyContent="center" alignItems="flex" sx={{ padding: "2%", height: "150px", border: "1px solid black" }}>
+                            <Grid containter
+                                spacing={0}
+                                direction="column"
+                                justifyContent="center"
+                                alignItems="center"
+                                style={{ minHeight: '100vh' }}>
+                                <Grid item xs={3}>
+                                    {headerCard("Topic")}
+                                </Grid>
                             </Grid>
-                        </Grid>
-                    </Box>
+                        </Box>
 
-                    <Box justifyContent="flex" alignItems="flex" sx={{ width: '100%', padding: "5%" }}>
-                        <Grid container justifyContent="flex" alignItems="flex" spacing={5} rowSpacing={5} columnSpacing={1} direction="row">
-                            <Grid item xs={3}>
-                                {subtopicCard("subtopic")}
+                        <Box justifyContent="flex" alignItems="flex" sx={{ width: '100%', padding: "5%" }}>
+                            <Grid container justifyContent="flex" alignItems="flex" spacing={5} rowSpacing={5} columnSpacing={1} direction="row">
+                                <Grid item xs={3}>
+                                    {subtopicCard("subtopic")}
+                                </Grid>
+                                <Grid item xs={3}>
+                                    {subtopicCard("subtopic")}
+                                </Grid>
+                                <Grid item xs={3}>
+                                    {subtopicCard("subtopic")}
+                                </Grid>
+                                <Grid item xs={3}>
+                                    {subtopicCard("subtopic")}
+                                </Grid>
                             </Grid>
-                            <Grid item xs={3}>
-                                {subtopicCard("subtopic")}
-                            </Grid>
-                            <Grid item xs={3}>
-                                {subtopicCard("subtopic")}
-                            </Grid>
-                            <Grid item xs={3}>
-                                {subtopicCard("subtopic")}
-                            </Grid>
-                        </Grid>
-                    </Box>
-                </Container>
-            </main>
-        </Container>
-
+                        </Box>
+                    </Container>
+                </main>
+            </Container>
+        </>
     );
 
 }

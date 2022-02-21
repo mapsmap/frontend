@@ -32,14 +32,16 @@ const sidebar = {
 
 export default function TextContentPage() {
     return (
-        <Container maxWidth="lg">
+        <>
             <Header title="MapsMap" />
-            <main>
-                <Grid container spacing={5} sx={{ mt: 3 }}>
-                    <TextContent title={title} doc={doc} />
-                    <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
-                </Grid>
-            </main>
-        </Container>
+            <Container maxWidth="lg">
+                <main>
+                    <Grid container spacing={5} sx={{ mt: 3 }}>
+                        <TextContent title={title} doc={doc} />
+                        <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
+                    </Grid>
+                </main>
+            </Container>
+        </>
     );
 }

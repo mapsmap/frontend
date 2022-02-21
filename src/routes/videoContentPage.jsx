@@ -14,16 +14,17 @@ const sidebar = {
 
 export default function VideoContentPage() {
     return (
-        <Container maxWidth="lg">
-            <Header title="Map The Future">
-            </Header>
-            <main>
-                <VideoBox></VideoBox>
-                <TextContentSidebar relatedNodes={sidebar.relatedNodes}>
+        <>
+            <Header title="Map The Future" />
+            <Container maxWidth="lg">
+                <main>
+                    <VideoBox></VideoBox>
+                    <TextContentSidebar relatedNodes={sidebar.relatedNodes}>
 
-                </TextContentSidebar>
+                    </TextContentSidebar>
 
-            </main>
-        </Container>
+                </main>
+            </Container>
+        </>
     );
 }

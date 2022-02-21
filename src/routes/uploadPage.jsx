@@ -22,21 +22,22 @@ export default function UploadPage() {
     // }
 
     return (
-    <Container maxwidth = "lg">
-        <Header title="Map the Future">
-        </Header>
-        <main >
-        <Box paddingTop = "2%" justifyContent = "center" alignItems = "center">
-            <ContentTitleForm>
+        <>
+            <Header title="Map the Future" />
+            <Container maxwidth="lg">
+                <main >
+                    <Box paddingTop="2%" justifyContent="center" alignItems="center">
+                        <ContentTitleForm>
 
-            </ContentTitleForm>
-            <ContentBodyForm>
+                        </ContentTitleForm>
+                        <ContentBodyForm>
 
-            </ContentBodyForm>
-           <PostButton></PostButton>
-        </Box>
-        </main>
-    </Container>
+                        </ContentBodyForm>
+                        <PostButton></PostButton>
+                    </Box>
+                </main>
+            </Container>
+        </>
     );
-   
+
 }

@@ -15,19 +15,20 @@ export default function HomePage() {
 
 
     return (
-        <Container maxWidth="lg">
-            <Header title="Map The Future">
+        <>
+            <Header title="Map The Future" />
+            <Container maxWidth="lg">
 
-            </Header>
-            <main>
-                <Grid container
-                    direction="column"
-                    justifyContent="center"
-                    alignItems="center">
-                    <HomeImage />
-                </Grid>
-                <button onClick={e => addTopic("Test")}>Create Test Topic</button>
-            </main>
-        </Container>
+                <main>
+                    <Grid container
+                        direction="column"
+                        justifyContent="center"
+                        alignItems="center">
+                        <HomeImage />
+                    </Grid>
+                    <button onClick={e => addTopic("Test")}>Create Test Topic</button>
+                </main>
+            </Container>
+        </>
     );
 }

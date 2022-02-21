@@ -24,9 +24,6 @@ ReactDOM.render(
         <Route path="topic" element={<TopicPage />}>
           <Route path=":topicName" element={<TopicPage />} />
         </Route>
-        <Route path="video-content" element={<VideoContentPage />}>
-          <Route path=":videoId" element={<VideoContentPage />} />
-        </Route>
         <Route path="upload" element={<UploadPage />} />
       </Routes>
     </BrowserRouter>

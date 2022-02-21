@@ -94,6 +94,13 @@ const addTopic = (state, name) => {
     })
 }
 
+const updateContent = (state, contentId, newContent) => {
+    return produce(state, draft => {
+        draft.content[contentId] = newContent;
+    })
+}
+
+
 
 
 
@@ -193,6 +200,8 @@ const createStore = (set) => ({
         set(state => updateNodePosition(state, nodeId, newPosition)),
     addTopic: (name) =>
         set(state => addTopic(state, name)),
+    updateContent: (contentId, newContent) =>
+        set(state => updateContent(state, contentId, newContent)),
 })
 
 const removeLocalData = async () => {

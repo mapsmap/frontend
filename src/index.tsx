@@ -8,7 +8,6 @@ import TreePage from "./routes/treePage";
 import ContentPage from "./routes/contentPage";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
-import UploadPage from "./routes/uploadPage"
 
 ReactDOM.render(
   <React.StrictMode>
@@ -23,7 +22,6 @@ ReactDOM.render(
         <Route path="topic" element={<TopicPage />}>
           <Route path=":topicName" element={<TopicPage />} />
         </Route>
-        <Route path="upload" element={<UploadPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

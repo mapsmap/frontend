@@ -4,7 +4,6 @@ import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import "./App.css";
 import TreePage from "./routes/treePage";
 import TextContentPage from "./routes/textContentPage";
 import HomePage from "./routes/homePage";

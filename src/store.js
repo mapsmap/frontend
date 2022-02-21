@@ -2,7 +2,7 @@ import create from "zustand";
 import produce from "immer";
 import * as Y from "yjs";
 import yjs from "zustand-middleware-yjs";
-import { WebrtcProvider } from "y-webrtc";
+//import { WebrtcProvider } from "y-webrtc";
 //import { IndexeddbPersistence } from "y-indexeddb";
 
 import { generateRandomId } from "./utils";
@@ -154,13 +154,13 @@ const removeLocalData = async () => {
 }
 
 // Offline support and collaboration
-const roomName = "mapsmap";
+//const roomName = "mapsmap";
 const ydoc = new Y.Doc();
 // eslint-disable-next-line no-unused-vars
 //const persistence = new IndexeddbPersistence(roomName, ydoc);
 removeLocalData();
 // eslint-disable-next-line no-unused-vars
-const provider = new WebrtcProvider(roomName, ydoc);
+//const provider = new WebrtcProvider(roomName, ydoc);
 
 const useStore = create(yjs(ydoc, "shared", createStore));
 

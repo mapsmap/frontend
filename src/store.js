@@ -126,20 +126,6 @@ const createStore = (set) => ({
             position: { x: -500, y: 0 }
         },
     ],
-    //backers: [
-    //    {
-    //        "userID": "123", "firstName": "joe", "lastName": "johnson",
-    //        "Projects": [], "wallet": "EFJCKD1000030301"
-    //    },
-    //    {
-    //        "userID": "133", "firstName": "luke", "lastName": "leddy",
-    //        "Projects": [], "wallet": "EFJCKDRi30191821"
-    //    },
-    //    {
-    //        "userID": "143", "firstName": "frank", "lastName": "fromisland",
-    //        "Projects": [], "wallet": "DJABEFDj029348301"
-    //    }
-    //],
     topics: {
         1: a,
         2: b

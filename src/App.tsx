@@ -1,6 +1,5 @@
 import "./App.css";
-import React from "react";
-import Tree from "./routes/trees";
+import Tree from "./routes/treePage";
 
 function App() {
   return (

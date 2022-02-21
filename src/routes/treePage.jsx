@@ -1,4 +1,5 @@
 import ReactFlow, { Background } from "react-flow-renderer";
+import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import SaveIcon from "@mui/icons-material/Save";
 import RootNode from "../components/RootNode";
@@ -40,7 +41,7 @@ const getEdges = (nodes) => {
     return edges;
 };
 
-export default function Tree() {
+export default function TreePage() {
     const nodes = useStore(state => state.nodes);
     const edges = getEdges(nodes);
     const elements = [...nodes, ...edges];
@@ -52,7 +53,14 @@ export default function Tree() {
     const onNodeDragStop = (event, node) => updateNodePosition(node.id, node.position);
 
     return (
-        <>
+        <Box
+            sx={{
+                width: "100vw",
+                height: "100vh",
+                backgroundColor: "#282c34",
+                color: "white",
+            }}
+        >
             <ReactFlow
                 elements={elements}
                 nodeTypes={nodeTypes}
@@ -76,6 +84,6 @@ export default function Tree() {
                 <SaveIcon sx={{ mr: 1 }} />
                 Save
             </Fab>
-        </>
+        </Box>
     )
 }

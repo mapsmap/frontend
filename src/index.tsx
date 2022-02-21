@@ -1,11 +1,12 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
-import App from "./App";
+import "./App.css";
+import TreePage from "./routes/treePage";
 import TextContentPage from "./routes/textContentPage";
-import reportWebVitals from "./reportWebVitals";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
 import VideoContentPage from "./routes/videoContentPage"
@@ -17,15 +18,15 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="trees" element={<App />} />
+        <Route path="tree" element={<TreePage />} />
         <Route path="text-content" element={<TextContentPage />} />
-        <Route path="topics" element={<TopicPage />}>
+        <Route path="topic" element={<TopicPage />}>
           <Route path=":topicName" element={<TopicPage />} />
         </Route>
-        <Route path="video-content" element={<VideoContentPage/>}>
-          <Route path=":videoId" element={<VideoContentPage/>}/>
+        <Route path="video-content" element={<VideoContentPage />}>
+          <Route path=":videoId" element={<VideoContentPage />} />
         </Route>
-        <Route path = "upload" element ={<UploadPage/>}/>
+        <Route path="upload" element={<UploadPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

@@ -49,8 +49,13 @@ const removeNode = (state, nodeId) => {
             }
         });
 
+        const contentId = draft.nodes.find(node => node.id === nodeId).contentId;
+
         // remove node
         draft.nodes = draft.nodes.filter(node => node.id !== nodeId);
+
+        // remove content
+        delete draft.content[contentId];
     });
 }
 

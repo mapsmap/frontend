@@ -8,7 +8,6 @@ import TreePage from "./routes/treePage";
 import ContentPage from "./routes/contentPage";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
-import VideoContentPage from "./routes/videoContentPage"
 import UploadPage from "./routes/uploadPage"
 
 ReactDOM.render(

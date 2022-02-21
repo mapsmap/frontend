@@ -1,18 +1,20 @@
 import { memo } from "react";
+import { useNavigate } from "react-router-dom";
+import { Handle } from "react-flow-renderer";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
-import { Handle } from "react-flow-renderer";
 import useStore from "../store";
 
 const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePosition = "right" }) => {
+    const navigate = useNavigate();
     const addChildNode = useStore(state => state.addChildNode);
     const removeNode = useStore(state => state.removeNode);
 
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
-        addChildNode(id);
+        navigate(`/content/${id}`);
     }
 
     return (

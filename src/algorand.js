@@ -3,7 +3,13 @@ export const getNodes = () => {
     return [];
 }
 
-export const saveNodes = (nodes) => {
+export const getContent = () => {
+    // TODO
+    return {};
+}
+
+export const save = (nodes, content) => {
     // TODO
     console.log(nodes);
+    console.log(content);
 }

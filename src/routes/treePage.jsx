@@ -6,7 +6,7 @@ import RootNode from "../components/RootNode";
 import ChildNode from "../components/ChildNode";
 import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import useStore from "../store";
-import { saveNodes } from "../algorand";
+import { save } from "../algorand";
 
 const nodeTypes = {
     rootNode: RootNode,
@@ -92,7 +92,7 @@ export default function TreePage() {
                 <Background color="#aaa" gap={16} />
             </ReactFlow>
             <Fab
-                onClick={e => saveNodes(nodes)}
+                onClick={e => save(rawNodes, content)}
                 variant="extended"
                 sx={{
                     position: "fixed",

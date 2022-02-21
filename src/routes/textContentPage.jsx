@@ -3,24 +3,8 @@ import Container from "@mui/material/Container";
 import Header from "../components/Header";
 import TextContent from "../components/TextContent";
 import TextContentSidebar from "../components/TextContentSidebar";
+import useStore from "../store";
 
-const title = "New mind substrate";
-const doc = `
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-    Aenean non nisl quis felis posuere finibus.
-    In varius aliquet rutrum.
-    Etiam mattis massa nec mauris posuere auctor.
-    In at porttitor mi.
-    Nulla ultricies magna id metus sollicitudin, eget cursus odio gravida.
-    Vivamus tristique consectetur neque sodales aliquam.
-    Proin laoreet scelerisque placerat.
-    Proin quis facilisis sem.
-    Maecenas accumsan sed erat at lacinia.
-    Phasellus erat purus, luctus sit amet orci ac, maximus sollicitudin mauris.
-    Phasellus gravida quam et nisl eleifend eleifend.
-    Fusce egestas nisl euismod bibendum efficitur.
-    Vestibulum in tristique velit, sed efficitur lacus.
-`;
 const sidebar = {
     relatedNodes: [
         { title: "BCI BW > in-brain", url: "#" },
@@ -30,14 +14,17 @@ const sidebar = {
     ],
 };
 
-export default function TextContentPage() {
+export default function TextContentPage({ id }) {
+    const content = useStore(state => state.content);
+    const { label, text } = content[id];
+
     return (
         <>
             <Header title="MapsMap" />
             <Container maxWidth="lg">
                 <main>
                     <Grid container spacing={5} sx={{ mt: 3 }}>
-                        <TextContent title={title} doc={doc} />
+                        <TextContent label={label} text={text} />
                         <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
                     </Grid>
                 </main>

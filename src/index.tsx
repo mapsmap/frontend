@@ -5,7 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import TreePage from "./routes/treePage";
-import TextContentPage from "./routes/textContentPage";
+import ContentPage from "./routes/contentPage";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
 import VideoContentPage from "./routes/videoContentPage"
@@ -18,7 +18,9 @@ ReactDOM.render(
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="tree" element={<TreePage />} />
-        <Route path="text-content" element={<TextContentPage />} />
+        <Route path="content" element={<ContentPage />}>
+          <Route path=":contentId" element={<TopicPage />} />
+        </Route>
         <Route path="topic" element={<TopicPage />}>
           <Route path=":topicName" element={<TopicPage />} />
         </Route>

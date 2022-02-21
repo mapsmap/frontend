@@ -3,15 +3,15 @@ import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
 
 export default function TextContent(props) {
-    const { title, doc } = props;
+    const { label, text } = props;
 
     return (
         <Grid item xs={12} md={8}>
             <Typography variant="h6" gutterBottom>
-                {title}
+                {label}
             </Typography>
             <Divider />
-            <div>{doc}</div>
+            <div>{text}</div>
         </Grid>
     );
 }

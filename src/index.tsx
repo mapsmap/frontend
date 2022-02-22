@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import TreePage from "./routes/treePage";
 import ContentPage from "./routes/contentPage";
+import ContentOverviewPage from "./routes/contentOverviewPage";
 import HomePage from "./routes/homePage";
 import TopicPage from "./routes/topicPage"
 
@@ -15,13 +16,10 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="tree" element={<TreePage />} />
-        <Route path="content" element={<ContentPage />}>
-          <Route path=":contentId" element={<TopicPage />} />
-        </Route>
-        <Route path="topic" element={<TopicPage />}>
-          <Route path=":topicName" element={<TopicPage />} />
-        </Route>
+        <Route path="/tree" element={<TreePage />} />
+        <Route path="/content" element={<ContentOverviewPage />} />
+        <Route path="/content/:contentId" element={<ContentPage />} />
+        <Route path="/topic" element={<TopicPage />} />
       </Routes>
     </BrowserRouter>
   </React.StrictMode>,

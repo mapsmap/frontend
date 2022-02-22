@@ -3,7 +3,6 @@ import produce from "immer";
 
 const toggleDrawer = (state) => {
     return produce(state, draft => {
-        console.log("drawer toggled");
         draft.drawerVisible = !draft.drawerVisible;
     })
 }

@@ -1,6 +1,7 @@
 import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
+import { PickerOverlay  } from 'filestack-react';
 
 export default function TextContent(props) {
     const { label, text } = props;
@@ -10,6 +11,11 @@ export default function TextContent(props) {
             <Typography variant="h6" gutterBottom>
                 {label}
             </Typography>
+            <PickerOverlay
+              apikey="ArlTDWwZTsCWKOl4lISx2z"
+              onSuccess={(res) => console.log(res)}
+              onUploadDone={(res) => console.log(res)}
+            />
             <Divider />
             <div>{text}</div>
         </Grid>

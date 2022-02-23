@@ -31,7 +31,7 @@ const addChildNode = (state, targetId) => {
             childNodes: [],
             type: "childNode",
             position: { x: x, y: y },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         };
         draft.nodes.push(newNode);
 
@@ -113,7 +113,7 @@ const createStore = (set) => ({
             childNodes: ["1", "2", "3"],
             type: "rootNode",
             position: { x: 0, y: 0 },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "1",
@@ -122,7 +122,7 @@ const createStore = (set) => ({
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: 100 },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "2",
@@ -131,7 +131,7 @@ const createStore = (set) => ({
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: 0 },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "3",
@@ -140,7 +140,7 @@ const createStore = (set) => ({
             childNodes: ["4"],
             type: "childNode",
             position: { x: -250, y: -100 },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "4",
@@ -148,7 +148,7 @@ const createStore = (set) => ({
             contentId: "4",
             type: "childNode",
             position: { x: -500, y: 0 },
-            contractAddr: "0x0000000000000000000000000000000000000000",
+            contractAddress: "0x0000000000000000000000000000000000000000",
         },
     ],
     content: {

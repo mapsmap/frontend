@@ -153,27 +153,22 @@ const createStore = (set) => ({
     ],
     content: {
         "0": {
-            id: "0",
             type: "text",
             text: exampleText,
         },
         "1": {
-            id: "1",
             type: "text",
             text: exampleText,
         },
         "2": {
-            id: "2",
             type: "text",
             text: exampleText,
         },
         "3": {
-            id: "3",
             type: "text",
             text: exampleText,
         },
         "4": {
-            id: "4",
             type: "video",
             videoId: "hYip_Vuv8J0",
         },

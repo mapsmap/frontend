@@ -98,7 +98,7 @@ export default function TreePage() {
                     <Background color="#aaa" gap={16} />
                 </ReactFlow>
                 <Fab
-                    onClick={e => save(rawNodes, content)}
+                    onClick={e => save(treeId, rawNodes, content)}
                     variant="extended"
                     sx={{
                         position: "fixed",

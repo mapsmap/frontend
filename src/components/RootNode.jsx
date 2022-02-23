@@ -10,12 +10,15 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
     const navigate = useNavigate();
     const addChildNode = useStore(state => state.addChildNode);
 
+
     const { treeId } = data;
+    const trees = useStore(state => state.trees);
+    const nodes = trees[treeId].nodes;
 
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
-        // FIXME: content id is not necessarily node id
-        navigate(`/content/${id}`);
+        const contentId = nodes[id].contentId;
+        navigate(`/content/${contentId}`);
     }
 
     return (

@@ -7,8 +7,8 @@ import Typography from '@mui/material/Typography';
 import useStore from "../store";
 
 function TopicCard(props) {
-  return <Card sx={{ height: 100, width: 100 }} style={{ backgroundColor: "#F7F773" }} key={props.name}>
-    <CardContent sx={{ padding: 4 }}>
+  return <Card sx={{ maxWidth: 300 }} style={{ backgroundColor: "#F7F773" }} key={props.name}>
+    <CardContent sx={{ margin: "1rem" }}>
       <Typography sx={{ fontSize: 14 }} align="center">{props.name}</Typography>
     </CardContent>
   </Card>

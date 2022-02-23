@@ -2,6 +2,7 @@ import ReactFlow, { Background } from "react-flow-renderer";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import SaveIcon from "@mui/icons-material/Save";
+import Header from "../components/Header";
 import RootNode from "../components/RootNode";
 import ChildNode from "../components/ChildNode";
 import RemoveButtonEdge from "../components/RemoveButtonEdge";
@@ -67,37 +68,39 @@ export default function TreePage() {
     const onNodeDragStop = (event, node) => updateNodePosition(node.id, node.position);
 
     return (
-        <Box
-            sx={{
-                width: "100vw",
-                height: "100vh",
-                backgroundColor: "#282c34",
-                color: "white",
-            }}
-        >
-            <ReactFlow
-                elements={elements}
-                nodeTypes={nodeTypes}
-                edgeTypes={edgeTypes}
-                onLoad={fitView}
-                onConnect={onConnectEdge}
-                onNodeDragStop={onNodeDragStop}
-            >
-                <Background color="#aaa" gap={16} />
-            </ReactFlow>
-            <Fab
-                onClick={e => save(rawNodes, content)}
-                variant="extended"
+        <>
+            <Header title="MapsMap" />
+            <Box
                 sx={{
-                    position: "fixed",
-                    zIndex: "10",
-                    bottom: "1rem",
-                    right: "1rem",
+                    height: "calc(100vh - 64px)",
+                    backgroundColor: "#282c34",
+                    color: "white",
                 }}
             >
-                <SaveIcon sx={{ mr: 1 }} />
-                Save
-            </Fab>
-        </Box>
-    )
+                <ReactFlow
+                    elements={elements}
+                    nodeTypes={nodeTypes}
+                    edgeTypes={edgeTypes}
+                    onLoad={fitView}
+                    onConnect={onConnectEdge}
+                    onNodeDragStop={onNodeDragStop}
+                >
+                    <Background color="#aaa" gap={16} />
+                </ReactFlow>
+                <Fab
+                    onClick={e => save(rawNodes, content)}
+                    variant="extended"
+                    sx={{
+                        position: "fixed",
+                        zIndex: "10",
+                        bottom: "1rem",
+                        right: "1rem",
+                    }}
+                >
+                    <SaveIcon sx={{ mr: 1 }} />
+                    Save
+                </Fab>
+            </Box>
+        </>
+    );
 }

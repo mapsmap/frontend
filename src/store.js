@@ -18,7 +18,6 @@ const addChildNode = (state, targetId) => {
 
         const id = generateRandomId();
         const newContent = {
-            id: id,
             type: "text",
             text: "",
         };

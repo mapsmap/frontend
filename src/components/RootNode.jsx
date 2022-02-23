@@ -10,8 +10,11 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
     const navigate = useNavigate();
     const addChildNode = useStore(state => state.addChildNode);
 
+    const { treeId } = data;
+
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
+        // FIXME: content id is not necessarily node id
         navigate(`/content/${id}`);
     }
 
@@ -27,7 +30,7 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
 
             <Grid container justify="space-between">
                 <Grid item>
-                    <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
+                    <IconButton onClick={e => addChildNode(treeId, id)} size="small" color="success" aria-label="add child node" component="span">
                         <AddIcon />
                     </IconButton>
                 </Grid>

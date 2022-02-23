@@ -12,8 +12,11 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
     const addChildNode = useStore(state => state.addChildNode);
     const removeNode = useStore(state => state.removeNode);
 
+    const { treeId } = data;
+
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
+        // FIXME: content id is not necessarily node id
         navigate(`/content/${id}`);
     }
 
@@ -29,12 +32,12 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
 
             <Grid container justify="space-between">
                 <Grid item>
-                    <IconButton onClick={e => addChildNode(id)} size="small" color="success" aria-label="add child node" component="span">
+                    <IconButton onClick={e => addChildNode(treeId, id)} size="small" color="success" aria-label="add child node" component="span">
                         <AddIcon />
                     </IconButton>
                 </Grid>
                 <Grid item sx={{ marginLeft: "auto" }} >
-                    <IconButton onClick={e => removeNode(id)} size="small" color="error" aria-label="delete node" component="span">
+                    <IconButton onClick={e => removeNode(treeId, id)} size="small" color="error" aria-label="delete node" component="span">
                         <DeleteIcon />
                     </IconButton>
                 </Grid>

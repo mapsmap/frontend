@@ -10,9 +10,9 @@ import { Topic } from "./Models/Topic";
 import { exampleText } from "./exampleContent";
 
 
-const addChildNode = (state, targetId) => {
+const addChildNode = (state, treeId, targetId) => {
     return produce(state, draft => {
-        const targetNode = draft.nodes.find(node => node.id === targetId);
+        const targetNode = draft.trees[treeId].nodes.find(node => node.id === targetId);
         const x = targetNode.position.x - 250;
         const y = targetNode.position.y;
 
@@ -32,7 +32,7 @@ const addChildNode = (state, targetId) => {
             position: { x: x, y: y },
             contractAddress: "0x0000000000000000000000000000000000000000",
         };
-        draft.nodes.push(newNode);
+        draft.trees[treeId].nodes.push(newNode);
 
         if (!targetNode.childNodes) {
             targetNode.childNodes = [];
@@ -41,28 +41,28 @@ const addChildNode = (state, targetId) => {
     })
 }
 
-const removeNode = (state, nodeId) => {
+const removeNode = (state, treeId, nodeId) => {
     return produce(state, draft => {
         // remove edges pointing to the node
-        draft.nodes.forEach(node => {
+        draft.trees[treeId].nodes.forEach(node => {
             if (node.childNodes) {
                 node.childNodes = node.childNodes.filter(id => id !== nodeId);
             }
         });
 
-        const contentId = draft.nodes.find(node => node.id === nodeId).contentId;
+        const contentId = draft.trees[treeId].nodes.find(node => node.id === nodeId).contentId;
 
         // remove node
-        draft.nodes = draft.nodes.filter(node => node.id !== nodeId);
+        draft.trees[treeId].nodes = draft.trees[treeId].nodes.filter(node => node.id !== nodeId);
 
         // remove content
         delete draft.content[contentId];
     });
 }
 
-const addEdge = (state, sourceId, targetId) => {
+const addEdge = (state, treeId, sourceId, targetId) => {
     return produce(state, draft => {
-        const targetNode = draft.nodes.find(node => node.id === targetId);
+        const targetNode = draft.trees[treeId].nodes.find(node => node.id === targetId);
         if (!targetNode.childNodes) {
             targetNode.childNodes = [];
         }
@@ -72,16 +72,16 @@ const addEdge = (state, sourceId, targetId) => {
     })
 }
 
-const removeEdge = (state, sourceId, targetId) => {
+const removeEdge = (state, treeId, sourceId, targetId) => {
     return produce(state, draft => {
-        const targetNode = draft.nodes.find(node => node.id === targetId);
+        const targetNode = draft.trees[treeId].nodes.find(node => node.id === targetId);
         targetNode.childNodes = targetNode.childNodes.filter(id => id !== sourceId);
     });
 }
 
-const updateNodePosition = (state, nodeId, newPosition) => {
+const updateNodePosition = (state, treeId, nodeId, newPosition) => {
     return produce(state, draft => {
-        const node = draft.nodes.find(node => node.id === nodeId);
+        const node = draft.trees[treeId].nodes.find(node => node.id === nodeId);
         node.position = newPosition;
     })
 }
@@ -104,52 +104,56 @@ const a = new Topic(1, "Environment", 100);
 const b = new Topic(2, "Longevity", 50000);
 
 const createStore = (set) => ({
-    nodes: [
-        {
-            id: "0",
-            title: "Shared planetary computer",
-            contentId: "0",
-            childNodes: ["1", "2", "3"],
-            type: "rootNode",
-            position: { x: 0, y: 0 },
-            contractAddress: "0x0000000000000000000000000000000000000000",
+    trees: {
+        "0": {
+            nodes: [
+                {
+                    id: "0",
+                    title: "Shared planetary computer",
+                    contentId: "0",
+                    childNodes: ["1", "2", "3"],
+                    type: "rootNode",
+                    position: { x: 0, y: 0 },
+                    contractAddress: "0x0000000000000000000000000000000000000000",
+                },
+                {
+                    id: "1",
+                    title: "Shared planetary file system (IPFS)",
+                    contentId: "1",
+                    childNodes: ["4"],
+                    type: "childNode",
+                    position: { x: -250, y: 100 },
+                    contractAddress: "0x0000000000000000000000000000000000000000",
+                },
+                {
+                    id: "2",
+                    title: "Shared planetary database (IPDB)",
+                    contentId: "2",
+                    childNodes: ["4"],
+                    type: "childNode",
+                    position: { x: -250, y: 0 },
+                    contractAddress: "0x0000000000000000000000000000000000000000",
+                },
+                {
+                    id: "3",
+                    title: "Shared planetary processing (ETH)",
+                    contentId: "3",
+                    childNodes: ["4"],
+                    type: "childNode",
+                    position: { x: -250, y: -100 },
+                    contractAddress: "0x0000000000000000000000000000000000000000",
+                },
+                {
+                    id: "4",
+                    title: "\"Blockchain\"",
+                    contentId: "4",
+                    type: "childNode",
+                    position: { x: -500, y: 0 },
+                    contractAddress: "0x0000000000000000000000000000000000000000",
+                },
+            ],
         },
-        {
-            id: "1",
-            title: "Shared planetary file system (IPFS)",
-            contentId: "1",
-            childNodes: ["4"],
-            type: "childNode",
-            position: { x: -250, y: 100 },
-            contractAddress: "0x0000000000000000000000000000000000000000",
-        },
-        {
-            id: "2",
-            title: "Shared planetary database (IPDB)",
-            contentId: "2",
-            childNodes: ["4"],
-            type: "childNode",
-            position: { x: -250, y: 0 },
-            contractAddress: "0x0000000000000000000000000000000000000000",
-        },
-        {
-            id: "3",
-            title: "Shared planetary processing (ETH)",
-            contentId: "3",
-            childNodes: ["4"],
-            type: "childNode",
-            position: { x: -250, y: -100 },
-            contractAddress: "0x0000000000000000000000000000000000000000",
-        },
-        {
-            id: "4",
-            title: "\"Blockchain\"",
-            contentId: "4",
-            type: "childNode",
-            position: { x: -500, y: 0 },
-            contractAddress: "0x0000000000000000000000000000000000000000",
-        },
-    ],
+    },
     content: {
         "0": {
             type: "text",
@@ -176,16 +180,16 @@ const createStore = (set) => ({
         1: a,
         2: b
     },
-    addChildNode: (targetId) =>
-        set(state => addChildNode(state, targetId)),
-    removeNode: (nodeId) =>
-        set(state => removeNode(state, nodeId)),
-    addEdge: (sourceId, targetId) =>
-        set(state => addEdge(state, sourceId, targetId)),
-    removeEdge: (sourceId, targetId) =>
-        set(state => removeEdge(state, sourceId, targetId)),
-    updateNodePosition: (nodeId, newPosition) =>
-        set(state => updateNodePosition(state, nodeId, newPosition)),
+    addChildNode: (treeId, targetId) =>
+        set(state => addChildNode(state, treeId, targetId)),
+    removeNode: (treeId, nodeId) =>
+        set(state => removeNode(state, treeId, nodeId)),
+    addEdge: (treeId, sourceId, targetId) =>
+        set(state => addEdge(state, treeId, sourceId, targetId)),
+    removeEdge: (treeId, sourceId, targetId) =>
+        set(state => removeEdge(state, treeId, sourceId, targetId)),
+    updateNodePosition: (treeId, nodeId, newPosition) =>
+        set(state => updateNodePosition(state, treeId, nodeId, newPosition)),
     addTopic: (name) =>
         set(state => addTopic(state, name)),
     updateContent: (contentId, newContent) =>

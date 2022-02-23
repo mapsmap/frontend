@@ -19,10 +19,10 @@ const splitEdgeId = (edgeId) => {
     }
 }
 
-const onEdgeClick = (evt, edgeId, removeEdge) => {
+const onEdgeClick = (evt, treeId, edgeId, removeEdge) => {
     evt.stopPropagation();
     const { sourceId, targetId } = splitEdgeId(edgeId);
-    removeEdge(sourceId, targetId);
+    removeEdge(treeId, sourceId, targetId);
 }
 
 export default function RemoveButtonEdge({
@@ -39,6 +39,7 @@ export default function RemoveButtonEdge({
     markerEndId,
 }) {
     const removeEdge = useStore(state => state.removeEdge);
+    const { treeId } = data;
 
     const edgePath = getBezierPath({
         sourceX,
@@ -76,7 +77,7 @@ export default function RemoveButtonEdge({
                 <div>
                     <button
                         className="edgebutton"
-                        onClick={(event) => onEdgeClick(event, id, removeEdge)}
+                        onClick={(event) => onEdgeClick(event, treeId, id, removeEdge)}
                     >
                         ×
                     </button>

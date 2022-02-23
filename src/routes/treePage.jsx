@@ -1,4 +1,5 @@
 import ReactFlow, { Background } from "react-flow-renderer";
+import { useParams } from "react-router-dom";
 import Box from "@mui/material/Box";
 import Fab from "@mui/material/Fab";
 import SaveIcon from "@mui/icons-material/Save";
@@ -22,10 +23,13 @@ const fitView = (reactFlowInstance) => {
     reactFlowInstance.fitView();
 };
 
-const getNodes = (rawNodes) => {
+const getNodes = (treeId, rawNodes) => {
     let nodes = [];
     rawNodes.forEach(rawNode => {
-        let data = { label: rawNode.title };
+        let data = {
+            label: rawNode.title,
+            treeId: treeId,
+        };
         const node = {
             ...rawNode,
             data: data,
@@ -35,7 +39,7 @@ const getNodes = (rawNodes) => {
     return nodes;
 }
 
-const getEdges = (nodes) => {
+const getEdges = (treeId, nodes) => {
     let edges = [];
     nodes
         .filter(node => node.childNodes)
@@ -44,6 +48,9 @@ const getEdges = (nodes) => {
             node.childNodes.forEach(sourceId => {
                 edges.push({
                     id: "e" + sourceId + "-" + targetId,
+                    data: {
+                        treeId: treeId,
+                    },
                     source: sourceId,
                     target: targetId,
                     animated: true,
@@ -55,17 +62,20 @@ const getEdges = (nodes) => {
 };
 
 export default function TreePage() {
+    const { treeId } = useParams();
     const content = useStore(state => state.content);
-    const rawNodes = useStore(state => state.nodes);
-    const nodes = getNodes(rawNodes); // TODO: only re-run when rawNodes
-    const edges = getEdges(nodes);
+    const trees = useStore(state => state.trees);
+    const rawNodes = trees[treeId].nodes;
+    // TODO: only re-run when treeId or rawNodes changed
+    const nodes = getNodes(treeId, rawNodes);
+    const edges = getEdges(treeId, nodes);
     const elements = [...nodes, ...edges];
 
     const addEdge = useStore(state => state.addEdge);
     const onConnectEdge = ({ source, target }) => addEdge(source, target);
 
     const updateNodePosition = useStore(state => state.updateNodePosition);
-    const onNodeDragStop = (event, node) => updateNodePosition(node.id, node.position);
+    const onNodeDragStop = (event, node) => updateNodePosition(treeId, node.id, node.position);
 
     return (
         <>

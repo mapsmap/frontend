@@ -5,6 +5,7 @@ import CssBaseline from "@mui/material/CssBaseline";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import TreePage from "./routes/treePage";
+import TreeOverviewPage from "./routes/treeOverviewPage";
 import ContentPage from "./routes/contentPage";
 import ContentOverviewPage from "./routes/contentOverviewPage";
 import HomePage from "./routes/homePage";
@@ -16,7 +17,8 @@ ReactDOM.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/tree" element={<TreePage />} />
+        <Route path="/tree" element={<TreeOverviewPage />} />
+        <Route path="/tree/:treeId" element={<TreePage />} />
         <Route path="/content" element={<ContentOverviewPage />} />
         <Route path="/content/:contentId" element={<ContentPage />} />
         <Route path="/topic" element={<TopicPage />} />

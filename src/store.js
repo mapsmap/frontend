@@ -20,16 +20,18 @@ const addChildNode = (state, targetId) => {
         const newContent = {
             id: id,
             type: "text",
-            label: "New Node",
             text: "",
         };
         draft.content[id] = newContent;
 
         const newNode = {
             id: id,
+            title: "",
             contentId: id,
+            childNodes: [],
             type: "childNode",
-            position: { x: x, y: y }
+            position: { x: x, y: y },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         };
         draft.nodes.push(newNode);
 
@@ -85,7 +87,6 @@ const updateNodePosition = (state, nodeId, newPosition) => {
     })
 }
 
-
 const addTopic = (state, name) => {
     return produce(state, draft => {
         const id = generateRandomId();
@@ -107,76 +108,74 @@ const createStore = (set) => ({
     nodes: [
         {
             id: "0",
+            title: "Shared planetary computer",
             contentId: "0",
             childNodes: ["1", "2", "3"],
             type: "rootNode",
-            position: { x: 0, y: 0 }
+            position: { x: 0, y: 0 },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "1",
+            title: "Shared planetary file system (IPFS)",
             contentId: "1",
             childNodes: ["4"],
             type: "childNode",
-            position: { x: -250, y: 100 }
+            position: { x: -250, y: 100 },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "2",
+            title: "Shared planetary database (IPDB)",
             contentId: "2",
             childNodes: ["4"],
             type: "childNode",
-            position: { x: -250, y: 0 }
+            position: { x: -250, y: 0 },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "3",
+            title: "Shared planetary processing (ETH)",
             contentId: "3",
             childNodes: ["4"],
             type: "childNode",
-            position: { x: -250, y: -100 }
+            position: { x: -250, y: -100 },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         },
         {
             id: "4",
+            title: "\"Blockchain\"",
             contentId: "4",
-            childNodes: ["4"],
             type: "childNode",
-            position: { x: -500, y: 0 }
+            position: { x: -500, y: 0 },
+            contractAddr: "0x0000000000000000000000000000000000000000",
         },
     ],
     content: {
         "0": {
             id: "0",
             type: "text",
-            label: "Shared planetary computer",
             text: exampleText,
         },
         "1": {
             id: "1",
             type: "text",
-            label: "Shared planetary file system (IPFS)",
             text: exampleText,
         },
         "2": {
             id: "2",
             type: "text",
-            label: "Shared planetary database (IPDB)",
             text: exampleText,
         },
         "3": {
             id: "3",
             type: "text",
-            label: "Shared planetary processing (ETH)",
             text: exampleText,
         },
         "4": {
             id: "4",
-            type: "text",
-            label: "\"Blockchain\"",
-            text: exampleText,
-        },
-        "5": {
-            id: "5",
             type: "video",
-            label: "Fund early stage longevity research",
-            videoId: "4dXds3QLcME",
+            videoId: "hYip_Vuv8J0",
         },
     },
     topics: {

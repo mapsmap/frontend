@@ -21,13 +21,10 @@ const fitView = (reactFlowInstance) => {
     reactFlowInstance.fitView();
 };
 
-const getNodes = (rawNodes, content) => {
+const getNodes = (rawNodes) => {
     let nodes = [];
     rawNodes.forEach(rawNode => {
-        let data = { label: "" };
-        if (content) {
-            data = content[rawNode.contentId];
-        }
+        let data = { label: rawNode.title };
         const node = {
             ...rawNode,
             data: data,
@@ -53,16 +50,13 @@ const getEdges = (nodes) => {
                 });
             });
         });
-
     return edges;
 };
 
 export default function TreePage() {
     const content = useStore(state => state.content);
     const rawNodes = useStore(state => state.nodes);
-
-    // TODO: only re-run when rawNodes or content changes
-    const nodes = getNodes(rawNodes, content);
+    const nodes = getNodes(rawNodes); // TODO: only re-run when rawNodes
     const edges = getEdges(nodes);
     const elements = [...nodes, ...edges];
 

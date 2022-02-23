@@ -9,6 +9,15 @@ import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 import NavDrawer from './NavDrawer';
 import useStoreLocal from '../storeLocal';
+import { useDispatch, useSelector } from 'react-redux';
+import Dialog from '@mui/material/Dialog';
+import Button from '@mui/material/Button';
+import SiteHeader from './SiteHeader';
+
+
+
+import { walletConnectInit } from './features/walletConnectSlice';
+import { selectIsModalOpen, setIsModalOpen } from './features/applicationSlice';
 
 
 const Search = styled('div')(({ theme }) => ({
@@ -55,9 +64,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 export default function SearchAppBar() {
   const toggleDrawer = useStoreLocal(state => state.toggleDrawer);
+  const isModalOpen = useSelector(selectIsModalOpen);
+  const dispatch = useDispatch();
 
   return (
     <>
+      <SiteHeader/>
       <NavDrawer />
       <Box color="primary" sx={{ flexGrow: 1 }}>
         <AppBar style={{ background: '#6AA84F' }} position="static">
@@ -92,6 +104,16 @@ export default function SearchAppBar() {
           </Toolbar>
         </AppBar>
       </Box>
+        <Dialog
+          isShown={isModalOpen}
+          title="Connect to a wallet"
+          hasFooter={false}
+          onCloseComplete={() => dispatch(setIsModalOpen(false))}
+        >
+          <Button className="wallet-button" onClick={() => dispatch(walletConnectInit())}>
+            <span>Algorand Wallet</span>
+          </Button>
+        </Dialog>
     </>
   );
 }

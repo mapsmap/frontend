@@ -106,6 +106,7 @@ const b = new Topic(2, "Longevity", 50000);
 const createStore = (set) => ({
     trees: {
         "0": {
+            title: "Shared Planetary Computer",
             nodes: [
                 {
                     id: "0",

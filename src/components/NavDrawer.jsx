@@ -36,11 +36,11 @@ export default function NavDrawer() {
                         </ListItem>
                     </Link>
                     <Link to="/tree" style={{ textDecoration: "none" }}>
-                        <ListItem button key="Tree">
+                        <ListItem button key="Trees">
                             <ListItemIcon>
                                 <AccountTreeIcon />
                             </ListItemIcon>
-                            <ListItemText primary="Tree" />
+                            <ListItemText primary="Trees" />
                         </ListItem>
                     </Link>
                     <Link to="/content" style={{ textDecoration: "none" }}>

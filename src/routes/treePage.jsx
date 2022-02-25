@@ -84,11 +84,10 @@ export default function TreePage() {
                 id="sans-header"
                 sx={{
                     height: "calc(100vh - 64px)",
-                    backgroundColor: "#282c34",
                     color: "white",
                 }}
             >
-                <ReactFlow 
+                <ReactFlow
                     elements={elements}
                     nodeTypes={nodeTypes}
                     edgeTypes={edgeTypes}

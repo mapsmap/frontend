@@ -9,9 +9,16 @@ import ChildNode from "../components/ChildNode";
 import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import useStore from "../store";
 import { save, roamimport } from "../algorand";
-import { create, CID, IPFSHTTPClient } from "ipfs-http-client";
 import * as filestack from 'filestack-js';
 const client = filestack.init('ArlTDWwZTsCWKOl4lISx2z');
+
+const fs_options = {
+  fromSources: ["local_file_system"],
+  accept: ["*.json"],
+  onUploadDone: file => {
+       roamimport(file.filesUploaded[0].url);
+        }
+};
 
 const nodeTypes = {
     rootNode: RootNode,
@@ -117,7 +124,7 @@ export default function TreePage() {
                     Save
                 </Fab>
                 <Fab
-                    onClick={e => client.picker().open()}
+                    onClick={e => client.picker(fs_options).open()}
                     variant="extended"
                     sx={{
                         position: "fixed",

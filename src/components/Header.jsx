@@ -4,8 +4,8 @@ import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
 import InputBase from '@mui/material/InputBase';
-import MenuIcon from '@material-ui/icons/Menu';
-import SearchIcon from '@material-ui/icons/Search';
+import MenuIcon from '@mui/icons-material/Menu'; //hm -material could not find
+import SearchIcon from '@mui/icons-material/ManageSearch';//hm - material could not find
 import NavDrawer from './NavDrawer';
 import useStoreLocal from '../storeLocal';
 

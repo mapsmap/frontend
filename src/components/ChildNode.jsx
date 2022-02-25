@@ -5,6 +5,7 @@ import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddIcon from "@mui/icons-material/Add";
+import EditIcon from "@mui/icons-material/Edit";
 import useStore from "../store";
 import useStoreLocal from "../storeLocal";
 
@@ -26,6 +27,9 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
     const handleCreate = (treeId, id) => {
         openDialog("createNode", { treeId: treeId, id: id });
     }
+    const handleEdit = (treeId, id) => {
+        openDialog("editNode", { treeId: treeId, id: id });
+    }
 
     return (
         <div className="react-flow__node-default" onDoubleClick={(evt) => onDoubleClickNode(evt, id)}>
@@ -41,6 +45,11 @@ const ChildNode = ({ id, data, isConnectable, targetPosition = "left", sourcePos
                 <Grid item>
                     <IconButton onClick={e => handleCreate(treeId, id)} size="small" color="success" aria-label="add child node" component="span">
                         <AddIcon />
+                    </IconButton>
+                </Grid>
+                <Grid item>
+                    <IconButton onClick={e => handleEdit(treeId, id)} size="small" aria-label="edit node" component="span">
+                        <EditIcon />
                     </IconButton>
                 </Grid>
                 <Grid item sx={{ marginLeft: "auto" }} >

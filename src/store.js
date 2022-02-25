@@ -87,6 +87,13 @@ const removeEdge = (state, treeId, sourceId, targetId) => {
     });
 }
 
+const renameNode = (state, treeId, nodeId, newName) => {
+    return produce(state, draft => {
+        const node = draft.trees[treeId].nodes.find(node => node.id === nodeId);
+        node.title = newName;
+    })
+}
+
 const updateNodePosition = (state, treeId, nodeId, newPosition) => {
     return produce(state, draft => {
         const node = draft.trees[treeId].nodes.find(node => node.id === nodeId);
@@ -203,6 +210,8 @@ const createStore = (set) => ({
         set(state => addTopic(state, name)),
     updateContent: (contentId, newContent) =>
         set(state => updateContent(state, contentId, newContent)),
+    renameNode: (treeId, nodeId, newName) =>
+        set(state => renameNode(state, treeId, nodeId, newName)),
 });
 
 // Offline support and collaboration

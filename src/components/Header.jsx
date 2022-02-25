@@ -58,7 +58,7 @@ export default function SearchAppBar() {
   return (
     <>
       <NavDrawer />
-      <AppBar style={{ background: '#6AA84F', minHeight: '64px' }} position="sticky">
+      <AppBar style={{ background: '#006AA84F', minHeight: '64px' }} position="sticky">
         <Toolbar>
           <IconButton
             size="large"

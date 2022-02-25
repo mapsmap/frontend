@@ -18,7 +18,6 @@
     "filestack-js": "^3.25.0",
     "filestack-react": "^4.0.1",
     "immer": "^9.0.12",
-    "ipfs-http-client": "^56.0.1",
     "lodash": "^4.17.21",
     "material-ui-image": "^3.3.2",
     "react": "^17.0.2",

@@ -4,12 +4,12 @@ import { useNavigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import IconButton from "@mui/material/IconButton";
 import AddIcon from "@mui/icons-material/Add";
+import useStoreLocal from "../storeLocal";
 import useStore from "../store";
 
 const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
     const navigate = useNavigate();
-    const addChildNode = useStore(state => state.addChildNode);
-
+    const openDialog = useStoreLocal(state => state.openDialog);
 
     const { treeId } = data;
     const trees = useStore(state => state.trees);
@@ -17,8 +17,12 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
 
     const onDoubleClickNode = (evt, id) => {
         evt.stopPropagation();
-        const contentId = nodes[id].contentId;
+        const contentId = nodes.find(node => node.id === id).contentId;
         navigate(`/content/${contentId}`);
+    }
+
+    const handleCreate = (treeId, id) => {
+        openDialog("createNode", { treeId: treeId, id: id });
     }
 
     return (
@@ -33,7 +37,7 @@ const RootNode = ({ id, data, isConnectable, targetPosition = "left" }) => {
 
             <Grid container justify="space-between">
                 <Grid item>
-                    <IconButton onClick={e => addChildNode(treeId, id)} size="small" color="success" aria-label="add child node" component="span">
+                    <IconButton onClick={e => handleCreate(treeId, id)} size="small" color="success" aria-label="add child node" component="span">
                         <AddIcon />
                     </IconButton>
                 </Grid>

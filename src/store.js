@@ -10,22 +10,30 @@ import { Topic } from "./Models/Topic";
 import { exampleText } from "./exampleContent";
 
 
-const addChildNode = (state, treeId, targetId) => {
+const addChildNode = (state, treeId, targetId, name, type) => {
     return produce(state, draft => {
         const targetNode = draft.trees[treeId].nodes.find(node => node.id === targetId);
         const x = targetNode.position.x - 250;
         const y = targetNode.position.y;
 
         const id = generateRandomId();
-        const newContent = {
-            type: "text",
-            text: "",
-        };
+        var newContent;
+        if (type === "video") {
+            newContent = {
+                type: type,
+                videoId: "hYip_Vuv8J0",
+            };
+        } else {
+            newContent = {
+                type: type,
+                text: name,
+            };
+        }
         draft.content[id] = newContent;
 
         const newNode = {
             id: id,
-            title: "",
+            title: name,
             contentId: id,
             childNodes: [],
             type: "childNode",
@@ -181,8 +189,8 @@ const createStore = (set) => ({
         1: a,
         2: b
     },
-    addChildNode: (treeId, targetId) =>
-        set(state => addChildNode(state, treeId, targetId)),
+    addChildNode: (treeId, targetId, name, type) =>
+        set(state => addChildNode(state, treeId, targetId, name, type)),
     removeNode: (treeId, nodeId) =>
         set(state => removeNode(state, treeId, nodeId)),
     addEdge: (treeId, sourceId, targetId) =>

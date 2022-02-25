@@ -8,6 +8,7 @@ import RootNode from "../components/RootNode";
 import ChildNode from "../components/ChildNode";
 import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import CreateNodeDialog from "../components/createNodeDialog";
+import EditNodeDialog from "../components/editNodeDialog";
 import useStore from "../store";
 import { save, roamimport } from "../algorand";
 import { create, CID, IPFSHTTPClient } from "ipfs-http-client";
@@ -87,6 +88,7 @@ export default function TreePage() {
         <>
             <Header title="MapsMap" />
             <CreateNodeDialog />
+            <EditNodeDialog />
             <Box
                 id="sans-header"
                 sx={{

@@ -10,10 +10,7 @@ import RemoveButtonEdge from "../components/RemoveButtonEdge";
 import CreateNodeDialog from "../components/createNodeDialog";
 import EditNodeDialog from "../components/editNodeDialog";
 import useStore from "../store";
-import { save, roamimport } from "../algorand";
-import { create, CID, IPFSHTTPClient } from "ipfs-http-client";
-import * as filestack from 'filestack-js';
-const client = filestack.init('ArlTDWwZTsCWKOl4lISx2z');
+import { save } from "../algorand";
 
 const nodeTypes = {
     rootNode: RootNode,
@@ -43,8 +40,6 @@ const getNodes = (treeId, rawNodes) => {
     })
     return nodes;
 }
-
-
 
 const getEdges = (treeId, nodes) => {
     let edges = [];
@@ -113,29 +108,12 @@ export default function TreePage() {
                         position: "fixed",
                         zIndex: "10",
                         bottom: "1rem",
-                        right: "2rem",
+                        right: "1rem",
                     }}
                 >
                     <SaveIcon sx={{ mr: 1 }} />
                     Save
                 </Fab>
-                <Fab
-                    onClick={e => client.picker().open()}
-                    variant="extended"
-                    sx={{
-                        position: "fixed",
-                        zIndex: "10",
-                        bottom: "5rem",
-                        right: "1rem",
-                    }}
-                >
-                    <SaveIcon sx={{ mr: 1 }} />
-                    Impost
-                </Fab>
-               
-                    
-
-
             </Box>
         </>
     );

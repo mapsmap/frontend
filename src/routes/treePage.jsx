@@ -78,7 +78,7 @@ export default function TreePage() {
     const elements = [...nodes, ...edges];
 
     const addEdge = useStore(state => state.addEdge);
-    const onConnectEdge = ({ source, target }) => addEdge(source, target);
+    const onConnectEdge = ({ source, target }) => addEdge(treeId, source, target);
 
     const updateNodePosition = useStore(state => state.updateNodePosition);
     const onNodeDragStop = (event, node) => updateNodePosition(treeId, node.id, node.position);

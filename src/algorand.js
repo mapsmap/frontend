@@ -1,6 +1,30 @@
+import { create, CID, IPFSHTTPClient } from "ipfs-http-client";
+
 var node_list = {}
 var children_list =[]; 
 var content_list ={};
+
+const projectId = "254nI9naf56rKe15zMR2AxGgKJ2";
+const projectSecret = "52972fe24430dc8fa5b7e4730741bff1";
+const authorization = "Basic " + btoa(projectId + ":" + projectSecret);
+let client: IPFSHTTPClient | undefined;
+  try {
+    client = create({
+      url: "https://ipfs.infura.io:5001/api/v0",
+      headers: {
+        authorization,
+      },
+    });
+  } catch (error) {
+    //console.error("IPFS error ");
+    client = undefined;
+  }
+
+
+
+
+
+
 function buildnode(id,type,cid,children,posx,posy,title){
                    var node =  {
                           id: id,
@@ -88,13 +112,24 @@ function parseContent(oid,id,data,posx,posy,title){
                   return id;
 }
 
-function storeinipfs(data){
-                return "CID... "+ data;
+ const storeinipfs = async (data) => {
+    
+        //console.log(client);
+        console.log(JSON.stringify(data));
+        
+        if (data !== undefined && client !== undefined){
+          console.log("hi");
+          const { cid } = await client.add(JSON.stringify(data));
+          console.log(cid);
+          return cid;
+        }
+        return "";
+                
 }
 
 
 function convert(roamgraph){
-    console.log(roamgraph);
+    
     var mapsgraph = []
     var id = 0;
     var posx = 10;
@@ -153,7 +188,7 @@ export const save = (treeId, nodes, content) => {
 }
 
 export const roamimport = (url) => {
-    console.log(url)
+    
     fetch(url)
     .then(response =>  response.json()     
             
@@ -162,7 +197,7 @@ export const roamimport = (url) => {
     .then(responseJson => {
         
        var map = convert(responseJson);
-            console.log(map);
+    //console.log(map);
     })
     .catch(error => {
       console.error(error);

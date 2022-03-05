@@ -23,31 +23,6 @@ function subtopicCard(name) {
 
 
 export default function TopicPage() {
-    // const topics = useStore(state => state.topics);
-    // const topicName = useParams().topicName
-    // let topic = Object.keys(topics).find(topic => topic.name === topicName)
-    // const topicValues = Object.keys
-    // console.log("topicName", topicName)
-    // console.log("topics", topics)
-    // console.log("topic", topic)
-    // console.log("topics[1].name", topics[1].name)
-    // const layer1 = Object.values(topics)
-    // const layer2 = Object.values(layer1)
-    // console.log("Object.values(topics)", Object.values(topics))
-    // console.log("layer 2:", layer2)
-    // const names = []
-    // const findTopics = (topics)=>{
-    //     Object.keys(topics).forEach(key => {
-    //         console.log(`key: ${key}, value: ${topics[key]} `)
-    //         if (typeof topics[key]==='object'&& topics[key] !== null){
-    //             findTopics(topics[key])
-    //             names.push(topics[key].name)
-    //         }
-    //     })
-    //     console.log( "names",names)
-    // }
-    // findTopics(topics)
-
     return (
         <>
             <Header title="Map The Future" />

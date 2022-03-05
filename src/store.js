@@ -2,8 +2,8 @@ import create from "zustand";
 import produce from "immer";
 import * as Y from "yjs";
 import yjs from "zustand-middleware-yjs";
-//import { WebrtcProvider } from "y-webrtc";
-//import { IndexeddbPersistence } from "y-indexeddb";
+import { WebrtcProvider } from "y-webrtc";
+import { IndexeddbPersistence } from "y-indexeddb";
 
 import { generateRandomId } from "./utils";
 import { Topic } from "./Models/Topic";
@@ -215,12 +215,12 @@ const createStore = (set) => ({
 });
 
 // Offline support and collaboration
-//const roomName = "mapsmap";
+const roomName = "mapsmap";
 const ydoc = new Y.Doc();
 // eslint-disable-next-line no-unused-vars
-//const persistence = new IndexeddbPersistence(roomName, ydoc);
+const persistence = new IndexeddbPersistence(roomName, ydoc);
 // eslint-disable-next-line no-unused-vars
-//const provider = new WebrtcProvider(roomName, ydoc);
+const provider = new WebrtcProvider(roomName, ydoc);
 
 const useStore = create(yjs(ydoc, "shared", createStore));
 

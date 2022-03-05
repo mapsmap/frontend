@@ -4,6 +4,7 @@ import Container from '@mui/material/Container';
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography';
+import { Link } from "react-router-dom";
 import useStore from "../store";
 
 function TopicCard(props) {
@@ -23,7 +24,9 @@ export default function HomeGrid(props) {
         <Grid container spacing={5} rowSpacing={5} columnSpacing={1} direction="row">
           {Object.keys(topics).map(key => (
             <Grid item xs={4} key={topics[key].id} >
-              <TopicCard name={topics[key].name} />
+              <Link to="/tree" style={{ textDecoration: "none" }}>
+                <TopicCard name={topics[key].name} />
+              </Link>
             </Grid>
           ))}
           <Grid item xs={4} >

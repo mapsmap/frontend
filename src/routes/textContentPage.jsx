@@ -90,7 +90,7 @@ export default function TextContentPage({ id }) {
             <Header title="MapsMap" />
             <Container maxWidth="lg">
                 <main>
-                    <Grid container spacing={5} sx={{ mt: 3 }}>
+                    <Grid container spacing={5} sx={{ mt: 3, color: "white" }}>
                         <TextContent text={text} />
                         <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
                         <Grid item xs={12} md={8}>

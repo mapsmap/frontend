@@ -6,7 +6,7 @@ export default function TextContentSidebar(props) {
     const { relatedNodes } = props;
 
     return (
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={4} sx={{ color: "white" }}>
             <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                 Related Nodes
             </Typography>

@@ -18,10 +18,10 @@ export default function TreeOverviewPage() {
                     {
                         Object.keys(trees).map(treeId => {
                             return (
-                                <Card sx={{maxWidth:325, maxHeight:400} }>
-                                    <CardContent sx={{padding: "1rem",  alignItems: "center", justifyContent:"center"}}>
+                                <Card sx={{ maxWidth: 325, maxHeight: 400 }} key={treeId}>
+                                    <CardContent sx={{ padding: "1rem", alignItems: "center", justifyContent: "center" }}>
                                         <Link display="block" variant="body1" color="inherit" to={`/tree/${treeId}`} key={trees[treeId].title} >
-                                            <div><iframe src = {`/tree/${treeId}#sans-header`} title={`${trees[treeId].title}`}></iframe></div>
+                                            <div><iframe src={`/tree/${treeId}#sans-header`} title={`${trees[treeId].title}`}></iframe></div>
                                             <div>{trees[treeId].title}</div>
                                         </Link>
                                     </CardContent>

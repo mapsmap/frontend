@@ -10,20 +10,14 @@ import TextContent from "../components/TextContent";
 import TextContentSidebar from "../components/TextContentSidebar";
 import useStore from "../store";
 
-const sidebar = {
-    relatedNodes: [
-        { title: "BCI BW > in-brain", url: "#" },
-        { title: "Shared planetary computer", url: "#" },
-        { title: "DropBox your brain", url: "#" },
-        { title: "YouTube your brain", url: "#" },
-    ],
-};
-
 export default function TextContentPage({ id }) {
     const content = useStore(state => state.content);
     const { text } = content[id];
     const [editing, setEditing] = useState(false);
     const textField = useRef();
+
+    const trees = useStore(state => state.trees);
+    const relatedExampleNodes = trees["0"].nodes;
 
     const updateContent = useStore(state => state.updateContent);
     const onSave = () => {
@@ -92,7 +86,7 @@ export default function TextContentPage({ id }) {
                 <main>
                     <Grid container spacing={5} sx={{ mt: 3, color: "white" }}>
                         <TextContent text={text} />
-                        <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
+                        <TextContentSidebar relatedNodes={relatedExampleNodes} />
                         <Grid item xs={12} md={8}>
                             <Button
                                 onClick={e => setEditing(true)}

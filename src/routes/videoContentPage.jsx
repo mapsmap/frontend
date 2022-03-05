@@ -5,18 +5,12 @@ import Header from "../components/Header";
 import TextContentSidebar from "../components/TextContentSidebar";
 import VideoBox from "../components/VideoBox"
 
-const sidebar = {
-    relatedNodes: [
-        { title: "BCI BW > in-brain", url: "#" },
-        { title: "Shared planetary computer", url: "#" },
-        { title: "DropBox your brain", url: "#" },
-        { title: "YouTube your brain", url: "#" },
-    ],
-};
-
 export default function VideoContentPage({ id }) {
     const content = useStore(state => state.content);
     const { videoId } = content[id];
+
+    const trees = useStore(state => state.trees);
+    const relatedExampleNodes = trees["0"].nodes;
 
     return (
         <>
@@ -27,7 +21,7 @@ export default function VideoContentPage({ id }) {
                         <Grid item xs={12} md={8}>
                             <VideoBox videoId={videoId} />
                         </Grid>
-                        <TextContentSidebar relatedNodes={sidebar.relatedNodes} />
+                        <TextContentSidebar relatedNodes={relatedExampleNodes} />
                     </Grid>
                 </main>
             </Container>

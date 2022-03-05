@@ -10,8 +10,8 @@ export default function TextContentSidebar(props) {
             <Typography variant="h6" gutterBottom sx={{ mt: 3 }}>
                 Related Nodes
             </Typography>
-            {relatedNodes.map((relatedNode) => (
-                <Link display="block" variant="body1" href={relatedNode.url} key={relatedNode.title}>
+            {relatedNodes.slice(0, 4).map((relatedNode) => (
+                <Link display="block" variant="body1" href={"/content/" + relatedNode.id} key={relatedNode.title}>
                     {relatedNode.title}
                 </Link>
             ))}
